@@ -23,12 +23,12 @@ def SetAngle(angle):
 SetAngle(20)    
 
 SetAngle(0)
-time.sleep(1)
-SetAngle(40)
+time.sleep(5)
+SetAngle(45)
 time.sleep(1)
 SetAngle(0)
 time.sleep(1)
-SetAngle(40)
+SetAngle(45)
 time.sleep(1)
 
 servopwm.stop()
