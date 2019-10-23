@@ -17,11 +17,10 @@ motorpwm = GPIO.PWM(12, 100)   # Initialize PWM on pwmPin 100Hz frequency
 dc=0                               # set dc variable to 0 for 0%
 motorpwm.start(dc)                      # Start PWM with 0% duty cycle
 
-GPIO.output(16, 1)
-motorpwm.ChangeDutyCycle(6)
-time.sleep(2)
-GPIO.output(16, 0)
-
+GPIO.output(18, 1)
+motorpwm.ChangeDutyCycle(8)
+time.sleep(10)
+GPIO.output(18, 0)
 
 
 #GPIO.output(18, 1)

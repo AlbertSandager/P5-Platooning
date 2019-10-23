@@ -46,7 +46,6 @@ class DetectBall(picamera.array.PiRGBAnalysis):
         dimG1 = 320
         dimG2 = 192
         indices1 = np.ones((dimG2,dimG1), dtype = np.int)*maxG1
-    #indices1 = indices1
         indices2 = np.ones((dimG2,dimG1),dtype = np.int) * maxG2
         np.put_along_axis(GreenFound,indices1,255,axis=0)
         np.put_along_axis(GreenFound,indices2,255,axis=1)
