@@ -41,15 +41,15 @@ def SetAngle(angle):
 #40=helt til venstre
 
 #we are steering here    
-SetAngle(20)
+SetAngle(22.5)
 time.sleep(1)
 SetAngle(0)
 time.sleep(1)
-SetAngle(20)
+SetAngle(22.5)
 time.sleep(1)
-SetAngle(40)
+SetAngle(45)
 time.sleep(1)
-SetAngle(20)
+SetAngle(22.5)
 time.sleep(1)
 
 #we are speedy here

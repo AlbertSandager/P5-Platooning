@@ -18,8 +18,8 @@ dc=0                               # set dc variable to 0 for 0%
 motorpwm.start(dc)                      # Start PWM with 0% duty cycle
 
 GPIO.output(18, 1)
-motorpwm.ChangeDutyCycle(12)
-time.sleep(10)
+motorpwm.ChangeDutyCycle(6)
+time.sleep(5)
 GPIO.output(18, 0)
 
 

@@ -17,19 +17,12 @@ def SetAngle(angle):
     servopwm.ChangeDutyCycle(0)
     
 
-#Med den math der eksistere i linje 12 er det kun intervallet mellem 0-40 der må bruges!
+#Med den math der eksistere i linje 12 er det kun intervallet mellem 0-45 der må bruges!
 #0=helt til højre
-#40=helt til venstre
-SetAngle(20)    
+#45=helt til venstr
+SetAngle(45)
+time.sleep(10)
 
-SetAngle(0)
-time.sleep(5)
-SetAngle(45)
-time.sleep(1)
-SetAngle(0)
-time.sleep(1)
-SetAngle(45)
-time.sleep(1)
 
 servopwm.stop()
 GPIO.cleanup()

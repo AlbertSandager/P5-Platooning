@@ -3,6 +3,42 @@ import numpy as np
 import picamera
 import time
 import picamera.array
+import serial
+
+
+ser = serial.Serial('/dev/ttyACM0',9600)
+ser.close()
+ser.open()
+time.sleep(5)
+
+
+
+#function for setting the servo angle
+def SetAngle(angle):
+    duty = angle / 18 + 2
+    #GPIO.output(22, True)
+    datasent = str.encode(chr(int(angle)))
+    #datasent = int(angle)
+    print("Data sent: ")
+    print(datasent)
+    ser.write(datasent)
+    time.sleep(0.01)
+    #GPIO.output(22, False)
+    #servopwm.ChangeDutyCycle(0)
+    
+    
+def translate(value, leftMin, leftMax, rightMin, rightMax):
+    # Figure out how 'wide' each range is
+    leftSpan = leftMax - leftMin
+    rightSpan = rightMax - rightMin
+
+    # Convert the left range into a 0-1 range (float)
+    valueScaled = float(value - leftMin) / float(leftSpan)
+
+    # Convert the 0-1 range into a value in the right range.
+    return round((rightMin + (valueScaled * rightSpan)),0)
+
+
 
 
 class DetectBall(picamera.array.PiRGBAnalysis):
@@ -39,7 +75,6 @@ class DetectBall(picamera.array.PiRGBAnalysis):
         yaxis = np.argmax(sumG1, axis=0)
         print("y: ")
         print(yaxis)
-        print("")
 
 
         GreenFound = GB2
@@ -55,7 +90,15 @@ class DetectBall(picamera.array.PiRGBAnalysis):
         cv2.imshow('image',GreenFound)
         cv2.waitKey(1)
         cv2.imwrite('GreenFound.png',GreenFound)
+        
+        
+        anglepwm = translate(xaxis, 0, 320, 65, 0)
+        SetAngle(anglepwm)
+        print("Servo value: ")
+        print(anglepwm)
+        print("")
     
+
 
 with picamera.PiCamera(
 ## Camera setup
@@ -71,3 +114,7 @@ with picamera.PiCamera(
  ## Stop recording after 2 seconds
         camera.wait_recording(300)
         camera.stop_recording()
+        
+servopwm.stop()
+motorpwm.stop()                    # stop PWM
+# GPIO.cleanup()                     # resets GPIO ports used back to input mode
