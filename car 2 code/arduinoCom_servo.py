@@ -1,12 +1,14 @@
 import cv2
+import os
 import numpy as np
 import picamera
 import time
 import picamera.array
 import serial
 
+os.nice(20)
 
-ser = serial.Serial('/dev/ttyACM0',9600)
+ser = serial.Serial('/dev/ttyACM0',115200)
 ser.close()
 ser.open()
 time.sleep(5)

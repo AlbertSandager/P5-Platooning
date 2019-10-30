@@ -5,7 +5,7 @@ int pos = 0;
 
 void setup(){
   myservo.attach(9);
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 void loop(){
