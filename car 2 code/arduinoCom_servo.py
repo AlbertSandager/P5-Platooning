@@ -14,19 +14,14 @@ ser.open()
 time.sleep(5)
 
 
-
 #function for setting the servo angle
 def SetAngle(angle):
     duty = angle / 18 + 2
-    #GPIO.output(22, True)
     datasent = str.encode(chr(int(angle)))
-    #datasent = int(angle)
     print("Data sent: ")
     print(datasent)
     ser.write(datasent)
     time.sleep(0.01)
-    #GPIO.output(22, False)
-    #servopwm.ChangeDutyCycle(0)
     
     
 def translate(value, leftMin, leftMax, rightMin, rightMax):
@@ -54,7 +49,7 @@ class DetectBall(picamera.array.PiRGBAnalysis):
         g[:, :, 2] = 0
         
     
-        GBthreshold = 200
+        GBthreshold = 50
     
         GB = np.where(g>GBthreshold,255,0)
     
@@ -95,7 +90,13 @@ class DetectBall(picamera.array.PiRGBAnalysis):
         
         
         anglepwm = translate(xaxis, 0, 320, 65, 0)
+        
+        #if dot is gone then steer to middle
+        if anglepwm == 65:
+            anglepwm = 33
+        
         SetAngle(anglepwm)
+        
         print("Servo value: ")
         print(anglepwm)
         print("")
@@ -114,7 +115,7 @@ with picamera.PiCamera(
         time.sleep(2)
         camera.start_recording(output, format='rgb')
  ## Stop recording after 2 seconds
-        camera.wait_recording(300)
+        camera.wait_recording(999)
         camera.stop_recording()
         
 servopwm.stop()
