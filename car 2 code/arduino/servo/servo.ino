@@ -20,21 +20,23 @@ void setup(){
 
 }
 
-void loop(){
-  if(Serial.available()){
-    pos = Serial.read();
-    Serial.print("The following char was received: ");
-    Serial.println(pos,DEC);
-    myservo.write(pos);
+void loop() {
+
+  if(Serial.available()) {
+      pos = Serial.read();
+      Serial.print("The following char was received: ");
+      Serial.println(pos,DEC);
+      myservo.write(pos);
   }
+
+
   tstop = millis();
   if(tstop-tstart < 30000) {
     digitalWrite(7, HIGH);
     analogWrite(11, 25);
   }
-  else{
+  else {
     analogWrite(11,0);
   }
+
 }
-
-
