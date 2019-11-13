@@ -3,7 +3,6 @@ void leaderMode() {
   carStatus[30] = "Leader#";
 
   if (MacADDR[0] == NULL)  {  //only send the message if our Mac adress is non-existant
-    char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
     for (int i = 0; i < 8; i++) {
       BTserial.write(ADDRcommand[i]); //send the command
       Serial.print(ADDRcommand[i]);
@@ -23,5 +22,5 @@ void leaderMode() {
   String MacADDRisolated = MacADDRstr.substring(MacSeperator, ' '); //make a string with only the mac adress. 
   // yeet the rest of the response away
   Serial.print(MacADDRisolated);//print it
-  caseChoice = 
+  //caseChoice = 
 }

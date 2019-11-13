@@ -26,7 +26,9 @@ boolean NL = true;
 int choker = 0;
 char caseChoice = '0';
 char carStatus[30] = "gewh";
-char MacADDR[50];
+char MacADDR[50]; // array for mac adress
+char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
+char NOTIFYcommand[10] = "AT+NOTI[1]"; //enable notifications
 
 void setup()
 {
@@ -41,39 +43,44 @@ void setup()
 
 
 
-void func() {
-  if (transmit != 10 & transmit != 13 & choker == 0)
-  {
-    BTserial.write(transmit);  // transmit the predetermined character
-    starttime = micros();      // take the starttime of the transmission
-    choker = 1;
-  }
-  if (BTserial.available())
-  {
-    char receive = ' ';             // make an empty char to receive char
-    receive = BTserial.read();      // place the received char in the variable
-    if (receive == 'J') {           // if the received char is J
-      endtime = micros();          // stop the timer
-      unsigned long total = endtime - starttime; //calculate total transmission time
-      Serial.println("Total time is: ");
-      Serial.println(total);
-      receive = ' ';               // empty the char
-      delay(1000);
-      choker = 0;
-    }
-  }
-}
+//void func() {
+//  if (transmit != 10 & transmit != 13 & choker == 0)
+//  {
+//    BTserial.write(transmit);  // transmit the predetermined character
+//    starttime = micros();      // take the starttime of the transmission
+//    choker = 1;
+//  }
+//  if (BTserial.available())
+//  {
+//    char receive = ' ';             // make an empty char to receive char
+//    receive = BTserial.read();      // place the received char in the variable
+//    if (receive == 'J') {           // if the received char is J
+//      endtime = micros();          // stop the timer
+//      unsigned long total = endtime - starttime; //calculate total transmission time
+//      Serial.println("Total time is: ");
+//      Serial.println(total);
+//      receive = ' ';               // empty the char
+//      delay(1000);
+//      choker = 0;
+//    }
+//  }
+//}
 
 void loop()
 {
   switch (caseChoice) {
     case '0':
-      Serial.print("Bluetooth setup has started");
+      //Serial.print("Bluetooth setup has started");
+      if (notifyChoker == 0)  {  //only send the message if our Mac adress is non-existant
+        for (int i = 0; i < 10; i++) {
+          BTserial.write(NOTIFYcommand[i]); //send the command
+          Serial.print(NOTIFYcommand[i]);
+        }
+      }
 
 
 
 
-      
       break;
     case '1':
       Serial.println("Choose platooning mode");
@@ -91,7 +98,7 @@ void loop()
       break;
     case '3':
       //Serial.println("You have chosen leader mode");
-      followerMode();
+      //followerMode();
       break;
   }
   //    if (digitalRead(button) == LOW)  {
