@@ -24,6 +24,9 @@ char c=' ';
 char transmit = 'G';
 boolean NL = true;
 int choker = 0;
+char caseChoice = '0';
+char carStatus[30] = "gewh";
+char MacADDR[50];
  
 void setup() 
 {
@@ -34,7 +37,13 @@ void setup()
     Serial.println(" ");
     BTserial.begin(9600);  
     Serial.println("BTserial started at 9600");
+//    Serial.println(MacADDR[0]);
+//    if (MacADDR[0] == NULL)  {
+//      Serial.println("Print this");
+//    }
 }
+
+
 
 void func(){
   if (transmit!=10 & transmit!=13 & choker == 0) 
@@ -61,9 +70,25 @@ void func(){
  
 void loop()
 {
-    if (digitalRead(button) == LOW)  {
-      func();
-    }
+  switch (caseChoice) {
+  case '0':
+      Serial.println("Choose platooning mode");
+      Serial.println("1. Leader mode");
+      Serial.println("2. Follower mode");
+      while (caseChoice == '0') {
+       if (Serial.available() > 0) {
+        caseChoice = Serial.read();
+       }
+      }
+    break;
+  case '1':
+    //Serial.println("You have chosen leader mode");
+    leaderMode();
+    break;
+}
+//    if (digitalRead(button) == LOW)  {
+//      func();
+//    }
      /*
     // Read from the Bluetooth module and send to the Arduino Serial Monitor
     if (BTserial.available())
