@@ -1,18 +1,3 @@
-//  SerialIn_SerialOut_HM-10_01
-//
-//  Uses hardware serial to talk to the host computer and AltSoftSerial for communication with the bluetooth module
-//
-//  What ever is entered in the serial monitor is sent to the connected device
-//  Anything received from the connected device is copied to the serial monitor
-//  Does not send line endings to the HM-10
-//
-//  Pins
-//  BT VCC to Arduino 5V out.
-//  BT GND to GND
-//  Arduino D8 (SS RX) - BT TX no need voltage divider
-//  Arduino D9 (SS TX) - BT RX through a voltage divider (5v to 3.3v)
-//
-
 #include <AltSoftSerial.h>
 AltSoftSerial BTserial;
 // https://www.pjrc.com/teensy/td_libs_AltSoftSerial.html
@@ -24,11 +9,12 @@ char c = ' ';
 char transmit = 'G';
 boolean NL = true;
 int choker = 0;
-char caseChoice = '0';
+char caseChoice = 'C';
 char carStatus[30] = "gewh";
-char MacADDR[50]; // array for mac adress
 char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
-char NOTIFYcommand[10] = "AT+NOTI[1]"; //enable notifications
+char connectionStatus[50];
+char platooningMode[15];
+String MacADDRisolated;
 
 void setup()
 {
@@ -39,6 +25,7 @@ void setup()
   Serial.println(" ");
   BTserial.begin(9600);
   Serial.println("BTserial started at 9600");
+  delay(100);
 }
 
 
@@ -69,65 +56,98 @@ void setup()
 void loop()
 {
   switch (caseChoice) {
-    case '0':
-      //Serial.print("Bluetooth setup has started");
-      if (notifyChoker == 0)  {  //only send the message if our Mac adress is non-existant
-        for (int i = 0; i < 10; i++) {
-          BTserial.write(NOTIFYcommand[i]); //send the command
-          Serial.print(NOTIFYcommand[i]);
+    case 'C':
+      delay(100);
+      if (connectionStatus[0] == NULL)  {  //only send the message if our Mac adress is non-existant
+        //Serial.print("ConnectionStatus = NULL");
+        for (int k = 0; k < 100; k++)  { // do it 50 times just to be sure
+          if (BTserial.available()) {
+            connectionStatus[k] = BTserial.read(); //fill up the receiving array
+            //Serial.print(connectionStatus[k]); //print the response from the HM-10
+          }
+        }
+        String connectionStatusStr(connectionStatus); //convert char array to string
+        //Serial.println(connectionStatusStr);
+        char CSseperator = connectionStatusStr.indexOf('O');  //set up seperator
+        String CSisolated = connectionStatusStr.substring(CSseperator, ' ');
+        if (CSisolated == "OK+CONN")  {
+          Serial.println("Connection established");
+          caseChoice = 'M';
         }
       }
-
-
-
-
       break;
-    case '1':
+    case 'M':
       Serial.println("Choose platooning mode");
       Serial.println("1. Leader mode");
       Serial.println("2. Follower mode");
-      while (caseChoice == '0') {
+      while (platooningMode[0] == NULL)  {
         if (Serial.available() > 0) {
-          caseChoice = Serial.read();
+          char tempCasechoice = Serial.read();
+          Serial.println(tempCasechoice);
+          if (tempCasechoice != '1' || tempCasechoice != '2' & tempCasechoice != NULL) {
+            Serial.println("Your choice is invalid");
+          }
+          delay(30);
+          if (tempCasechoice == '1')  {
+            caseChoice = tempCasechoice;
+            Serial.println("caseChoice = tempCasechoice = 1");
+            platooningMode[0] = "Leader";
+          }
+          delay(30);
+          if (tempCasechoice == '2')  {
+            caseChoice = tempCasechoice;
+            Serial.println("caseChoice = tempCasechoice = 2");
+            platooningMode[0] = "Follower";
+          }
+          delay(30);
         }
       }
       break;
-    case '2':
+    case '1':
       //Serial.println("You have chosen leader mode");
       leaderMode();
       break;
-    case '3':
+    case '2':
       //Serial.println("You have chosen leader mode");
       //followerMode();
       break;
+    case '3':
+      Serial.println("CASE 3 MOTHERFUCKER");
+      while (1)  {
+        //do nothing
+      }
+      break;
   }
-  //    if (digitalRead(button) == LOW)  {
-  //      func();
-  //    }
-  /*
-    // Read from the Bluetooth module and send to the Arduino Serial Monitor
-    if (BTserial.available())
-    {
-     c = BTserial.read();
-     Serial.write(c);
-    }
-
-
-    // Read from the Serial Monitor and send to the Bluetooth module
-    if (Serial.available())
-    {
-     c = Serial.read();
-     // do not send line end characters to the HM-10
-     if (c!=10 & c!=13 )
-     {
-          BTserial.write(c);
-     }
-
-     // Echo the user input to the main window.
-     // If there is a new line print the ">" character.
-     if (NL) { Serial.print("\r\n>");  NL = false; }
-     Serial.write(c);
-     if (c==10) { NL = true; }
-    }
-  */
 }
+
+
+
+//    if (digitalRead(button) == LOW)  {
+//      func();
+//    }
+/*
+  // Read from the Bluetooth module and send to the Arduino Serial Monitor
+  if (BTserial.available())
+  {
+   c = BTserial.read();
+   Serial.write(c);
+  }
+
+
+  // Read from the Serial Monitor and send to the Bluetooth module
+  if (Serial.available())
+  {
+   c = Serial.read();
+   // do not send line end characters to the HM-10
+   if (c!=10 & c!=13 )
+   {
+        BTserial.write(c);
+   }
+
+   // Echo the user input to the main window.
+   // If there is a new line print the ">" character.
+   if (NL) { Serial.print("\r\n>");  NL = false; }
+   Serial.write(c);
+   if (c==10) { NL = true; }
+  }
+*/
