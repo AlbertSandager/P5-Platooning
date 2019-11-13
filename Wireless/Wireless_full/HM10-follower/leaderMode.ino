@@ -2,34 +2,26 @@ void leaderMode() {
   //Serial.println("You chose leader mode");
   carStatus[30] = "Leader#";
 
-  if (MacADDR[0] == NULL)  {
-    char ADDRcommand[8] = "AT+ADDR?";
+  if (MacADDR[0] == NULL)  {  //only send the message if our Mac adress is non-existant
+    char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
     for (int i = 0; i < 8; i++) {
-      BTserial.write(ADDRcommand[i]);
+      BTserial.write(ADDRcommand[i]); //send the command
       Serial.print(ADDRcommand[i]);
     }
   }
 
   delay(200);
-  Serial.println("");
-  for (int k = 0; k < 49; k++)  {
+  Serial.println(""); //line new
+  for (int k = 0; k < 49; k++)  { // do it 50 times just to be sure
     if (BTserial.available()) {
-      MacADDR[k] = BTserial.read();
-      Serial.print(MacADDR[k]);
+      MacADDR[k] = BTserial.read(); //fill up the receiving array
+      Serial.print(MacADDR[k]); //print the response from the HM-10
     }
   }
-  String MacADDRstr(MacADDR);
-  char MacSeperator = MacADDRstr.indexOf(':') + 1;
-  String MacADDRisolated = MacADDRstr.substring(MacSeperator, ' ');
-  Serial.print(MacADDRisolated);
-  // if (digitalRead(button1) == HIGH) {  //choose leader mode
-  // tempStatus = "leader#";
-  // fetchID = Serial.Write(AT+getMacAddr);
-  // combinedBluetoothName= strcat(tempStatus,fetchID);
-
-  // if (digitalRead(button2) == HIGH)
-  // tempStatus = "follower#";
-  // fetchID = Serial.Write(AT+getMacAddr);
-  // combinedBluetoothName= strcat(tempStatus,fetchID);
-  //}
+  String MacADDRstr(MacADDR); //convert char array to string
+  char MacSeperator = MacADDRstr.indexOf(':') + 1;  //set up seperator
+  String MacADDRisolated = MacADDRstr.substring(MacSeperator, ' '); //make a string with only the mac adress. 
+  // yeet the rest of the response away
+  Serial.print(MacADDRisolated);//print it
+  caseChoice = 
 }
