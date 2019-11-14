@@ -2,23 +2,25 @@
 AltSoftSerial BTserial;
 // https://www.pjrc.com/teensy/td_libs_AltSoftSerial.html
 
-unsigned long starttime;
-unsigned long endtime;
-int button = 7;
-char c = ' ';
-char transmit = 'G';
-boolean NL = true;
-int choker = 0;
-char caseChoice = 'C';
+//unsigned long starttime;
+//unsigned long endtime;
+//int button = 7;
+//char c = ' ';
+//char transmit = 'G';
+//boolean NL = true;
+//int choker = 0;
+char caseChoice = 'C';    // choice of case in switch case
 char carStatus[30] = "gewh";
 char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
 char connectionStatus[50];
-char platooningMode[15];
-String MacADDRisolated;
+char platooningMode[15];  // leader or follower
+String MacADDR;   // Mac adress of HM-10
+char tempMacADDR[50]; // array for mac adress
+int MacADDRcontrolInt = 0;
 
 void setup()
 {
-  pinMode(button, INPUT_PULLUP);
+  //pinMode(button, INPUT_PULLUP);
   Serial.begin(9600);
   Serial.print("Sketch:   ");   Serial.println(__FILE__);
   Serial.print("Uploaded: ");   Serial.println(__DATE__);
@@ -57,24 +59,7 @@ void loop()
 {
   switch (caseChoice) {
     case 'C':
-      delay(100);
-      if (connectionStatus[0] == NULL)  {  //only send the message if our Mac adress is non-existant
-        //Serial.print("ConnectionStatus = NULL");
-        for (int k = 0; k < 100; k++)  { // do it 50 times just to be sure
-          if (BTserial.available()) {
-            connectionStatus[k] = BTserial.read(); //fill up the receiving array
-            //Serial.print(connectionStatus[k]); //print the response from the HM-10
-          }
-        }
-        String connectionStatusStr(connectionStatus); //convert char array to string
-        //Serial.println(connectionStatusStr);
-        char CSseperator = connectionStatusStr.indexOf('O');  //set up seperator
-        String CSisolated = connectionStatusStr.substring(CSseperator, ' ');
-        if (CSisolated == "OK+CONN")  {
-          Serial.println("Connection established");
-          caseChoice = 'M';
-        }
-      }
+      connectionControl();  //test the connection to the other car. If the connection is good, proceed to case M
       break;
     case 'M':
       Serial.println("Choose platooning mode");
@@ -84,38 +69,38 @@ void loop()
         if (Serial.available() > 0) {
           char tempCasechoice = Serial.read();
           Serial.println(tempCasechoice);
-          if (tempCasechoice != '1' || tempCasechoice != '2' & tempCasechoice != NULL) {
+          if (tempCasechoice != '1' && tempCasechoice != '2') {  //  & tempCasechoice != NULL
             Serial.println("Your choice is invalid");
           }
           delay(30);
           if (tempCasechoice == '1')  {
             caseChoice = tempCasechoice;
-            Serial.println("caseChoice = tempCasechoice = 1");
+            Serial.println("Leader mode has been chosen");
             platooningMode[0] = "Leader";
+            Serial.println("Fetching Mac-address...");
+            caseChoice = '1';
           }
           delay(30);
           if (tempCasechoice == '2')  {
             caseChoice = tempCasechoice;
-            Serial.println("caseChoice = tempCasechoice = 2");
+            Serial.println("Follower mode has been chosen");
             platooningMode[0] = "Follower";
+            Serial.println("Fetching Mac-address...");
+            caseChoice = '2';
           }
           delay(30);
         }
       }
       break;
     case '1':
-      //Serial.println("You have chosen leader mode");
       leaderMode();
       break;
     case '2':
-      //Serial.println("You have chosen leader mode");
-      //followerMode();
+      followerMode();
       break;
     case '3':
       Serial.println("CASE 3 MOTHERFUCKER");
-      while (1)  {
-        //do nothing
-      }
+      delay(1000);
       break;
   }
 }
