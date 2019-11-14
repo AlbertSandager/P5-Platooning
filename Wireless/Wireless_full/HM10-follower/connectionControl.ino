@@ -14,6 +14,7 @@ void connectionControl()  {
     String CSisolated = connectionStatusStr.substring(CSseperator, ' ');
     if (CSisolated == "OK+CONN")  {
       Serial.println("Connection established");
+      connectionbool = true;
       caseChoice = 'M';
     }
   }
@@ -37,10 +38,10 @@ void MacADDRcontrol() {
   String MacADDRstr(tempMacADDR); //convert char array to string
   char MacSeperator = MacADDRstr.indexOf(':') + 1;  //set up seperator
   MacADDR = MacADDRstr.substring(MacSeperator, ' '); //make a string with only the mac adress.
-  if (MacADDR.length() == 12) {
+  if (MacADDR.length() == 12 && MacADDRbool == false) {
     Serial.println("Mac-address is:");
     Serial.println(MacADDR);
-    caseChoice = '3';
+    MacADDRbool = true;
   }
 
   delay(50);
@@ -49,10 +50,11 @@ void MacADDRcontrol() {
     Serial.println("Wrong Mac-adress length!");
     Serial.println("Returning to menu");
     for (int j = 0; j < 15; j++)  {
-      platooningMode[j] = NULL;
+      platooningMode = NULL;
       tempMacADDR[j] = NULL;
       MacADDRcontrolInt = 0;
     }
+    MacADDRbool = false;
     caseChoice = 'M';
   }
 }

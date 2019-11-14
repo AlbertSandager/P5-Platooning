@@ -13,10 +13,26 @@ char caseChoice = 'C';    // choice of case in switch case
 char carStatus[30] = "gewh";
 char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
 char connectionStatus[50];
-char platooningMode[15];  // leader or follower
-String MacADDR;   // Mac adress of HM-10
 char tempMacADDR[50]; // array for mac adress
 int MacADDRcontrolInt = 0;
+bool MacADDRbool = false;
+bool connectionbool = false;
+char messageOut[30];  
+int packageLen;
+
+
+// variables for communication
+char separator = ':';
+char startbit = 'P'; // P
+String MacADDR;   // Mac adress of HM-10
+char platooningMode = NULL;  // L = leader     F = follower
+char wantedStatus = ' ';  // L = leader    // F = follower
+char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
+char STOPstatus = ' ';     // C = continue     S = STOP
+char stopbit = 'Q';  // Q
+
+
+
 
 void setup()
 {
@@ -32,29 +48,6 @@ void setup()
 
 
 
-//void func() {
-//  if (transmit != 10 & transmit != 13 & choker == 0)
-//  {
-//    BTserial.write(transmit);  // transmit the predetermined character
-//    starttime = micros();      // take the starttime of the transmission
-//    choker = 1;
-//  }
-//  if (BTserial.available())
-//  {
-//    char receive = ' ';             // make an empty char to receive char
-//    receive = BTserial.read();      // place the received char in the variable
-//    if (receive == 'J') {           // if the received char is J
-//      endtime = micros();          // stop the timer
-//      unsigned long total = endtime - starttime; //calculate total transmission time
-//      Serial.println("Total time is: ");
-//      Serial.println(total);
-//      receive = ' ';               // empty the char
-//      delay(1000);
-//      choker = 0;
-//    }
-//  }
-//}
-
 void loop()
 {
   switch (caseChoice) {
@@ -65,7 +58,7 @@ void loop()
       Serial.println("Choose platooning mode");
       Serial.println("1. Leader mode");
       Serial.println("2. Follower mode");
-      while (platooningMode[0] == NULL)  {
+      while (platooningMode == NULL)  {
         if (Serial.available() > 0) {
           char tempCasechoice = Serial.read();
           Serial.println(tempCasechoice);
@@ -76,7 +69,7 @@ void loop()
           if (tempCasechoice == '1')  {
             caseChoice = tempCasechoice;
             Serial.println("Leader mode has been chosen");
-            platooningMode[0] = "Leader";
+            platooningMode = 'L'; //l for leader
             Serial.println("Fetching Mac-address...");
             caseChoice = '1';
           }
@@ -84,7 +77,7 @@ void loop()
           if (tempCasechoice == '2')  {
             caseChoice = tempCasechoice;
             Serial.println("Follower mode has been chosen");
-            platooningMode[0] = "Follower";
+            platooningMode = 'F'; //f for follower
             Serial.println("Fetching Mac-address...");
             caseChoice = '2';
           }
@@ -93,10 +86,17 @@ void loop()
       }
       break;
     case '1':
-      leaderMode();
+      MacADDRcontrol();
+      if (MacADDRbool == true)  {
+        leaderMode();
+      }
+      
       break;
     case '2':
-      followerMode();
+      MacADDRcontrol();
+      if (MacADDRbool == true)  {
+        followerMode();
+      }
       break;
     case '3':
       Serial.println("CASE 3 MOTHERFUCKER");
