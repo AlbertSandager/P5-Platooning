@@ -3,6 +3,7 @@ void transmit() {
     if (messageOut[i] != 10 && messageOut[i] != 13)
   {
     BTserial.write(messageOut[i]);  // transmit the predetermined character
+    Serial.println("Im sending shit");
   }
   }
  

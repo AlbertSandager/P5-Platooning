@@ -13,12 +13,17 @@ char caseChoice = 'C';    // choice of case in switch case
 char carStatus[30] = "gewh";
 char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
 char connectionStatus[50];
-char tempMacADDR[50]; // array for mac adress
+char tempMacADDR[15]; // array for mac adress
 int MacADDRcontrolInt = 0;
 bool MacADDRbool = false;
 bool connectionbool = false;
 char messageOut[30];  
 int packageLen;
+char ATcommand[8] = "AT+RESET";
+int ATcntrlVar = 0;
+int WHILEcntrl = 0;
+String CSisolated;
+
 
 
 // variables for communication
