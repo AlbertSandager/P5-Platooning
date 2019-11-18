@@ -14,7 +14,7 @@ AltSoftSerial BTserial;
 char caseChoice = 'C';    // choice of case in switch case
 char carStatus[30] = "gewh";
 char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
-char connectionStatus[50];
+char connectionStatus[20];
 char tempMacADDR[15]; // array for mac adress
 int MacADDRcontrolInt = 0;
 bool MacADDRbool = false;
@@ -25,6 +25,7 @@ char ATcommand[8] = "AT+RESET";
 int ATcntrlVar = 0;
 int WHILEcntrl = 0;
 String CSisolated;
+int statusChange = 0;
 
 
 

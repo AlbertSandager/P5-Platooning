@@ -8,14 +8,18 @@ void leaderMode() {
                      + String(separator) + String(STOPstatus) + String(separator) + String(stopbit);
     package.toCharArray(messageOut, package.length());
     packageLen = package.length();
-    //Serial.println("Package length: ");
-   // Serial.println(package.length());
-    transmit();
     
-//    for (int i = 0; i < package.length() + 1; i++)  {
-//    Serial.println(messageOut[i]);
-//    delay(100);
-//    }
+
+  while (statusChange == 0) {
+    transmit();
+    receive();
+  }
+    
+
+    //    for (int i = 0; i < package.length() + 1; i++)  {
+    //    Serial.println(messageOut[i]);
+    //    delay(100);
+    //    }
   }
   else if (MacADDRbool == false || connectionbool == false) {
     Serial.print("Mac-address not fetched or connection not available");
