@@ -1,4 +1,6 @@
 void connectionControl()  {
+
+  //Sending AT+RESET to make sure it connects to the other device (only done once)
   delay(300);
   if (ATcntrlVar == 0)  {
     for (int i = 0; i < sizeof(ATcommand); i++) {
@@ -8,6 +10,7 @@ void connectionControl()  {
     ATcntrlVar = 1;
   }
 
+  //Receiving the OK+CONN from the device if its connected
   delay(100);
   while (WHILEcntrl == 0) {
     for (int k = 0; k < sizeof(connectionStatus) + 1; k++)  { // do it 50 times just to be sure
@@ -16,6 +19,8 @@ void connectionControl()  {
         Serial.print(connectionStatus[k]); //print the response from the HM-10
       }
     }
+
+    //isolating the OK+RESET message
     Serial.println("");
     String connectionStatusStr1(connectionStatus); //convert char array to string
     char CSseperator1 = connectionStatusStr1.indexOf('O');  //set up seperator
@@ -71,110 +76,16 @@ void connectionControl()  {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-/*
-  delay(100);
-  if (connectionStatus[0] == NULL)  {  //only send the message if our Mac adress is non-existant
-    //Serial.println("im in this bitch");
-    //Serial.print("ConnectionStatus = NULL");
-
-    for (int k = 0; k < sizeof(connectionStatus) + 1; k++)  { // do it 50 times just to be sure
-      if (BTserial.available()) {
-        connectionStatus[k] = BTserial.read(); //fill up the receiving array
-        Serial.print(connectionStatus[k]); //print the response from the HM-10
-      }
-    }
-
-    String connectionStatusStr1(connectionStatus); //convert char array to string
-    //Serial.println(connectionStatusStr);
-    char CSseperator1 = connectionStatusStr1.indexOf('O');  //set up seperator
-    String CSisolated = connectionStatusStr1.substring(CSseperator1, ' ');
-
-    for (int i = 0; i < sizeof(connectionStatus); i++)  {
-      connectionStatus[i] = NULL;
-    }
-
-    while (CSisolated == "OK+RESET")  {
-      for (int k = 0; k < sizeof(connectionStatus) + 1; k++)  { // do it 50 times just to be sure
-        if (BTserial.available()) {
-          connectionStatus[k] = BTserial.read(); //fill up the receiving array
-          //Serial.print(connectionStatus[k]); //print the response from the HM-10
-          //Serial.print("Jeg printer i OK+RESET");
-        }
-      }
-
-      String connectionStatusStr2(connectionStatus); //convert char array to string
-      //Serial.println(connectionStatusStr);
-      char CSseperator2 = connectionStatusStr2.indexOf('O');  //set up seperator
-      CSisolated = connectionStatusStr2.substring(CSseperator2, ' ');
-    }
-
-    for (int i = 0; i < sizeof(connectionStatus); i++)  {
-      connectionStatus[i] = NULL;
-    }
-
-    while (CSisolated == "OK+LOST")  {
-      for (int k = 0; k < sizeof(connectionStatus) + 1; k++)  { // do it 50 times just to be sure
-        if (BTserial.available()) {
-          connectionStatus[k] = BTserial.read(); //fill up the receiving array
-          //Serial.print(connectionStatus[k]); //print the response from the HM-10
-          //Serial.print("Jeg printer i OK+LOST");
-        }
-      }
-
-      String connectionStatusStr3(connectionStatus); //convert char array to string
-      //Serial.println(connectionStatusStr);
-      char CSseperator3 = connectionStatusStr3.indexOf('O');  //set up seperator
-      CSisolated = "";
-      CSisolated = connectionStatusStr3.substring(CSseperator3, ' ');
-      Serial.println(CSisolated);
-
-      for (int i = 0; i < sizeof(connectionStatus); i++)  {
-        connectionStatus[i] = NULL;
-      }
-    }
-
-
-    //      while (CSisolated == "OK+LOST")  {
-    //        for (int k = 0; k < sizeof(connectionStatus) + 1; k++)  { // do it 50 times just to be sure
-    //          if (BTserial.available()) {
-    //            connectionStatus[k] = BTserial.read(); //fill up the receiving array
-    //            //Serial.print(connectionStatus[k]); //print the response from the HM-10
-    //          }
-    //        }
-    //
-    //        String connectionStatusStr(connectionStatus); //convert char array to string
-    //        //Serial.println(connectionStatusStr);
-    //        char CSseperator = connectionStatusStr.indexOf('O');  //set up seperator
-    //        String CSisolated = connectionStatusStr.substring(CSseperator, ' ');
-    //      }
-    if (CSisolated == "OK+CONN")  {
-      Serial.println("Connection established");
-      connectionbool = true;
-      caseChoice = 'M';
-    }
-  }
-  }
-*/
-
-
 void MacADDRcontrol() {
+  //sending command to get the mac address
   if (tempMacADDR[0] == NULL)  {  //only send the message if our Mac adress is non-existant
     for (int i = 0; i < 8; i++) {
       BTserial.write(ADDRcommand[i]); //send the command
       //Serial.println(ADDRcommand[i]);
     }
   }
+
+  //fill up array with the received mac address
   delay(50);
   for (int k = 0; k < sizeof(tempMacADDR) + 1; k++)  { // do it 50 times just to be sure
     if (BTserial.available()) {
@@ -183,6 +94,7 @@ void MacADDRcontrol() {
     }
   }
 
+//isolate so the mac address looks as it should
   String MacADDRstr(tempMacADDR); //convert char array to string
   char MacSeperator = MacADDRstr.indexOf(':') + 1;  //set up seperator
   MacADDR = MacADDRstr.substring(MacSeperator, ' '); //make a string with only the mac adress.
@@ -192,6 +104,7 @@ void MacADDRcontrol() {
     MacADDRbool = true;
   }
 
+//check if the lenght of the mac address is correct
   delay(50);
   MacADDRcontrolInt = MacADDRcontrolInt + 1;
   if (MacADDR.length() != 12 && MacADDRcontrolInt >= 20)  {

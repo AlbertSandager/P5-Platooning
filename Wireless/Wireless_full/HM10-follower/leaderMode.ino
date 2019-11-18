@@ -1,4 +1,5 @@
 void leaderMode() {
+  //if mac address is received and the connection is ready. Send out the full message in leadermode
   if (MacADDRbool == true && connectionbool == true) {
     wantedStatus = 'L';
     confirmation = 'W';
@@ -21,19 +22,3 @@ void leaderMode() {
   }
   delay(5000);
 }
-
-
-
-
-
-
-/*
-char separator = ':';
-char startbit = 'P'; // P
-String MacADDR;   // Mac adress of HM-10
-char platooningMode = NULL;  // L = leader     F = follower
-char wantedStatus = ' ';  // L = leader    // F = follower
-char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
-char STOPstatus = ' ';     // C = continue     S = STOP
-char stopbit = 'Q';  // Q
- */

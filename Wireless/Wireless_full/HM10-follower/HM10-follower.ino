@@ -2,6 +2,8 @@
 AltSoftSerial BTserial;
 // https://www.pjrc.com/teensy/td_libs_AltSoftSerial.html
 
+//Global variables
+
 //unsigned long starttime;
 //unsigned long endtime;
 //int button = 7;
@@ -26,7 +28,7 @@ String CSisolated;
 
 
 
-// variables for communication
+//Variables for communication
 char separator = ':';
 char startbit = 'P'; // P
 String MacADDR;   // Mac adress of HM-10
@@ -41,7 +43,6 @@ char stopbit = 'Q';  // Q
 
 void setup()
 {
-  //pinMode(button, INPUT_PULLUP);
   Serial.begin(9600);
   Serial.print("Sketch:   ");   Serial.println(__FILE__);
   Serial.print("Uploaded: ");   Serial.println(__DATE__);
@@ -109,35 +110,3 @@ void loop()
       break;
   }
 }
-
-
-
-//    if (digitalRead(button) == LOW)  {
-//      func();
-//    }
-/*
-  // Read from the Bluetooth module and send to the Arduino Serial Monitor
-  if (BTserial.available())
-  {
-   c = BTserial.read();
-   Serial.write(c);
-  }
-
-
-  // Read from the Serial Monitor and send to the Bluetooth module
-  if (Serial.available())
-  {
-   c = Serial.read();
-   // do not send line end characters to the HM-10
-   if (c!=10 & c!=13 )
-   {
-        BTserial.write(c);
-   }
-
-   // Echo the user input to the main window.
-   // If there is a new line print the ">" character.
-   if (NL) { Serial.print("\r\n>");  NL = false; }
-   Serial.write(c);
-   if (c==10) { NL = true; }
-  }
-*/
