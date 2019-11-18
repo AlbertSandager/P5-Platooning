@@ -1,4 +1,4 @@
-void transmit() {
+void transmitmsg() {
   for (int i = 0; i == packageLen; i++)  {
     if (messageOut[i] != 10 && messageOut[i] != 13)
     {
@@ -6,8 +6,9 @@ void transmit() {
       Serial.println("Im sending shit");
     }
   }
+}
 
-void receive() {
+void receivemsg() {
   
 }
   //  if (transmit != 10 & transmit != 13 & choker == 0)
@@ -28,4 +29,3 @@ void receive() {
   //      choker = 0;
   //    }
   //  }
-}

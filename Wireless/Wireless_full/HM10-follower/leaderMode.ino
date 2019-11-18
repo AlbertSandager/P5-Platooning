@@ -11,8 +11,8 @@ void leaderMode() {
     
 
   while (statusChange == 0) {
-    transmit();
-    receive();
+    transmitmsg();
+    receivemsg();
   }
     
 
