@@ -2,17 +2,9 @@
 AltSoftSerial BTserial;
 // https://www.pjrc.com/teensy/td_libs_AltSoftSerial.html
 
-//Global variables
 
-//unsigned long starttime;
-//unsigned long endtime;
-//int button = 7;
-//char c = ' ';
-//char transmit = 'G';
-//boolean NL = true;
-//int choker = 0;
+//Global variables
 char caseChoice = 'C';    // choice of case in switch case
-char carStatus[30] = "gewh";
 char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
 char OKRESET[8];
 char OKLOST[7];
@@ -22,8 +14,18 @@ char tempMacADDR[25]; // array for mac adress
 int MacADDRcontrolInt = 0;
 bool MacADDRbool = false;
 bool connectionbool = false;
+
+
 char messageOut[24];
 char messageIn[24];
+
+//received stuff
+String MacADDRRec;   // Mac adress of HM-10
+String platooningModeRec;  // L = leader     F = follower
+String wantedStatusRec;  // L = leader    // F = follower
+String confirmationRec; // G = good to go = confirmed     // D = denied    // W = waiting for request
+String STOPstatusRec;     // C = continue     S = STOP
+
 
 int ATcntrlVar = 0;
 int WHILEcntrl = 0;
