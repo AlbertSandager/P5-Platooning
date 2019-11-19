@@ -16,8 +16,8 @@ bool MacADDRbool = false;
 bool connectionbool = false;
 
 
-char messageOut[23];
-char messageIn[23];
+char messageOut[24];
+char messageIn[24];
 
 //received stuff
 String MacADDRRec;   // Mac adress of HM-10
@@ -25,6 +25,9 @@ String platooningModeRec;  // L = leader     F = follower
 String wantedStatusRec;  // L = leader    // F = follower
 String confirmationRec; // G = good to go = confirmed     // D = denied    // W = waiting for request
 String STOPstatusRec;     // C = continue     S = STOP
+String stopbitRec;
+String startbitRec;
+String separatorRec;
 
 
 int ATcntrlVar = 0;
@@ -38,7 +41,7 @@ int statusChange = 0;
 char separator = ':';
 char startbit = '/'; // P
 String MacADDR;   // Mac adress of HM-10
-char platooningMode = 'L';  // L = leader     F = follower
+char platooningMode = NULL;  // L = leader     F = follower
 char wantedStatus = ' ';  // L = leader    // F = follower
 char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
 char STOPstatus = ' ';     // C = continue     S = STOP
@@ -68,9 +71,8 @@ void loop() {
       break;
 
     case 'M':
-      caseChoice = 1;
-      Serial.println("Follower mode has been chosen");
-      platooningMode = 'L'; //f for follower
+      Serial.println("Leader mode has been chosen");
+      platooningMode = 'L'; //l for leader
       Serial.println("Fetching Mac-address...");
       caseChoice = '1';
       delay(30);
