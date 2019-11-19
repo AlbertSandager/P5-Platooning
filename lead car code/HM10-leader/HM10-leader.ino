@@ -5,6 +5,9 @@ AltSoftSerial BTserial;
 
 //Global variables
 char caseChoice = 'C';    // choice of case in switch case
+int statusChange = 0;
+
+//variables for connectioncontrol
 char ADDRcommand[8] = "AT+ADDR?"; //the command to fetch mac adress
 char OKRESET[8];
 char OKLOST[7];
@@ -14,12 +17,13 @@ char tempMacADDR[25]; // array for mac adress
 int MacADDRcontrolInt = 0;
 bool MacADDRbool = false;
 bool connectionbool = false;
+int ATcntrlVar = 0;
+int WHILEcntrl = 0;
+String CSisolated;
 
-
+//variables for messaging
 char messageOut[24];
 char messageIn[24];
-
-//received stuff
 String MacADDRRec;   // Mac adress of HM-10
 String platooningModeRec;  // L = leader     F = follower
 String wantedStatusRec;  // L = leader    // F = follower
@@ -28,14 +32,6 @@ String STOPstatusRec;     // C = continue     S = STOP
 String stopbitRec;
 String startbitRec;
 String separatorRec;
-
-
-int ATcntrlVar = 0;
-int WHILEcntrl = 0;
-String CSisolated;
-int statusChange = 0;
-
-
 
 //Variables for communication
 char separator = ':';
@@ -49,8 +45,10 @@ char stopbit = '&';  // Q
 
 
 
-
 void setup() {
+
+  pinMode(13, OUTPUT);
+  digitalWrite(13, LOW);
 
   Serial.begin(9600);
   Serial.print("Sketch:   ");   Serial.println(__FILE__);

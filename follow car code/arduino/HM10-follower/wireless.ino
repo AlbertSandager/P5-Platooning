@@ -14,7 +14,7 @@ void transmitmsg() {
 
 void receivemsg() {
 
-//Here the message is split up into the different values
+  //Here the message is split up into the different values
   startbitRec = BTserial.readStringUntil('/');
   BTserial.read();
 

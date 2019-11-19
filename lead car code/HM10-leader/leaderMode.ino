@@ -13,8 +13,10 @@ void leaderMode() {
 
     //main thing runs HERE!!!
     while (statusChange == 0) {
-      //Serial.println("im also in here, fucker");
+      digitalWrite(13, HIGH);
+      
       transmitmsg();
+      
     }
   }
 
