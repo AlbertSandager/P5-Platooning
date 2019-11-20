@@ -35,14 +35,13 @@ String separatorRec;
 
 //Variables for communication
 char separator = ':';
-char startbit = '/'; // P
+char startbit = '/'; // /
 String MacADDR;   // Mac adress of HM-10
 char platooningMode = NULL;  // L = leader     F = follower
 char wantedStatus = ' ';  // L = leader    // F = follower
 char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
 char STOPstatus = ' ';     // C = continue     S = STOP
-char stopbit = '&';  // Q
-
+char stopbit = '&';  // &
 
 
 
@@ -83,7 +82,6 @@ void loop() {
             Serial.println("Leader mode has been chosen");
             platooningMode = 'L'; //l for leader
             Serial.println("Fetching Mac-address...");
-            caseChoice = '1';
           }
           delay(30);
           if (tempCasechoice == '2')  {
@@ -91,9 +89,7 @@ void loop() {
             Serial.println("Follower mode has been chosen");
             platooningMode = 'F'; //f for follower
             Serial.println("Fetching Mac-address...");
-            caseChoice = '2';
           }
-          delay(30);
         }
       }
       break;
