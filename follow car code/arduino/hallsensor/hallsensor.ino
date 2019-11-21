@@ -13,6 +13,8 @@ unsigned long total_time = 0;
 int last_magnetstate = 0;
 unsigned long timer = 0;
 unsigned long newmillis = 0;
+int magnet_status_old = 0;
+int magnet_status_new = 0;
 
 
 void setup() {
@@ -33,12 +35,14 @@ void setup() {
 void loop() {
   if (digitalRead(2) == LOW && last_magnetstate == 0)  {
     timer = micros();
-    if  (LOWcounter > 0)  {
+    if  (magnet_status_new +1 == magnet_status_old)  {
       newmillis = micros();
       total_time = newmillis - timer;
       velocity = ((circumference / magnets) / ((total_time) * (1 / 1000))) * 3.6;
       Serial.println(total_time);
+      magnet_status_new++;
     }
+    magnet_status_old++;
     LOWcounter++;
     last_magnetstate = 1;
   }
