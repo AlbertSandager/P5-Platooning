@@ -24,7 +24,7 @@ float lastvelocity = 0;
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(57600);
+  Serial.begin(115200);
   pinMode(PWM_PIN, OUTPUT);
   Timer1.initialize(2000);
   Timer1.stop();
@@ -36,9 +36,9 @@ void setup() {
 void loop() {
      if (Serial.available()) {
         theta_ref = Serial.read();
-        theta_ref = map(theta_ref,0,320,0,65);
-        Serial.print("The following char was received: ");
-        Serial.println(pos,DEC);
+        //theta_ref = map(theta_ref,0,320,0,65);
+//        Serial.print("The following char was received: ");
+//        Serial.println(theta_ref,DEC);
     }
     
   pos = lastpos + T*lastvelocity*KP;
@@ -53,12 +53,12 @@ void loop() {
 
   Timer1.setPwmDuty(PWM_PIN, PWM_OUT);
 
-  Serial.print(pos);
-  Serial.print(",");
-  Serial.print(theta_ref);
-  Serial.print(",");
-  Serial.print(PWM_OUT);
-  Serial.print("\n");
+//  Serial.print(pos);
+//  Serial.print(",");
+//  Serial.print(theta_ref);
+//  Serial.print(",");
+//  Serial.print(PWM_OUT);
+//  Serial.print("\n");
 
   // Wait
   while ((t0 + ts) > millis()) {}
