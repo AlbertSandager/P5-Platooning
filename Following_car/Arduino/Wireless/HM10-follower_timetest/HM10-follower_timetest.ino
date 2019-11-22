@@ -53,6 +53,7 @@ void setup() {
   Serial.println(" ");
   BTserial.begin(9600);
   Serial.println("BTserial started at 115200");
+  pinMode(3, INPUT_PULLUP);
   delay(100);
 }
 

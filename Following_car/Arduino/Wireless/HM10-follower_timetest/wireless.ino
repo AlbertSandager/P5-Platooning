@@ -4,8 +4,11 @@ void transmitmsg() {
     {
       BTserial.write(messageOut[i]);  // transmit the predetermined character
       delayMicroseconds(1500); //so it doesn't go too fast for the receiver
+      //Serial.print(messageOut[i]);
+      //Serial.println("Im sending shit");
     }
   }
+  //Serial.println("");
 }
 
 

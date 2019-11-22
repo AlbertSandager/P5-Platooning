@@ -2,8 +2,10 @@ void transmitmsg() {
   for (int i = 0; i < sizeof(messageOut) + 1; i++)  {
     if (messageOut[i] != 10 && messageOut[i] != 13)
     {
+            digitalWrite(3, LOW);
       BTserial.write(messageOut[i]);  // transmit the predetermined character
-      delayMicroseconds(1500); //so it doesn't go too fast for the receiver
+           digitalWrite(3, HIGH);
+      //delayMicroseconds(1200); //so it doesn't go too fast for the receiver
     }
   }
 }

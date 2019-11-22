@@ -4,7 +4,7 @@ AltSoftSerial BTserial;
 
 
 //Global variables
-char caseChoice = 'M';    // choice of case in switch case
+char caseChoice = 'C';    // choice of case in switch case
 int statusChange = 0;
 
 //variables for connectioncontrol
@@ -47,12 +47,16 @@ char stopbit = '&';  // &
 
 void setup() {
 
+  pinMode(13, OUTPUT);
+  digitalWrite(13, LOW);
+
   Serial.begin(115200);
   Serial.print("Sketch:   ");   Serial.println(__FILE__);
   Serial.print("Uploaded: ");   Serial.println(__DATE__);
   Serial.println(" ");
   BTserial.begin(9600);
   Serial.println("BTserial started at 115200");
+  pinMode(3, OUTPUT);
   delay(100);
 }
 
@@ -62,44 +66,21 @@ void loop() {
 
   switch (caseChoice) {
     case 'C':
-      //connectionControl();  //test the connection to the other car. If the connection is good, proceed to case M
+      connectionControl();  //test the connection to the other car. If the connection is good, proceed to case M
       break;
 
     case 'M':
-      Serial.println("Choose platooning mode");
-      Serial.println("1. Leader mode");
-      Serial.println("2. Follower mode");
-      while (platooningMode == NULL)  {
-        if (Serial.available() > 0) {
-          char tempCasechoice = Serial.read();
-          Serial.println(tempCasechoice);
-          if (tempCasechoice != '1' && tempCasechoice != '2') {  //  & tempCasechoice != NULL
-            Serial.println("Your choice is invalid");
-          }
-          delay(30);
-          if (tempCasechoice == '1')  {
-            caseChoice = tempCasechoice;
-            Serial.println("Leader mode has been chosen");
-            platooningMode = 'L'; //l for leader
-            Serial.println("Fetching Mac-address...");
-          }
-          delay(30);
-          if (tempCasechoice == '2')  {
-            caseChoice = tempCasechoice;
-            Serial.println("Follower mode has been chosen");
-            platooningMode = 'F'; //f for follower
-            Serial.println("Fetching Mac-address...");
-          }
-        }
-      }
+      Serial.println("Leader mode has been chosen");
+      platooningMode = 'L'; //l for leader
+      Serial.println("Fetching Mac-address...");
+      caseChoice = '1';
       break;
 
     case '1':
-      Serial.println("Running in leading mode mode");
-      break;
-
-    case '2':
-      followerMode();
+      MacADDRcontrol();
+      if (MacADDRbool == true)  {
+        leaderMode();
+      }
       break;
   }
 }

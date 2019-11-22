@@ -50,12 +50,12 @@ void setup() {
   pinMode(13, OUTPUT);
   digitalWrite(13, LOW);
 
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.print("Sketch:   ");   Serial.println(__FILE__);
   Serial.print("Uploaded: ");   Serial.println(__DATE__);
   Serial.println(" ");
   BTserial.begin(9600);
-  Serial.println("BTserial started at 9600");
+  Serial.println("BTserial started at 115200");
   delay(100);
 }
 
