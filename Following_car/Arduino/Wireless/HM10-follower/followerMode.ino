@@ -5,8 +5,7 @@ void followerMode() {
 
 
   Serial.println(MacADDRRec);
-  Serial.println(platooningModeRec);
-  Serial.println(wantedStatusRec);
+  Serial.println(emergencyValRec);
   Serial.println(confirmationRec);
-  Serial.println(STOPstatusRec);
+
 }

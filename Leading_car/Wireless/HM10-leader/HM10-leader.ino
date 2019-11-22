@@ -25,10 +25,8 @@ String CSisolated;
 char messageOut[24];
 char messageIn[24];
 String MacADDRRec;   // Mac adress of HM-10
-String platooningModeRec;  // L = leader     F = follower
-String wantedStatusRec;  // L = leader    // F = follower
+String emergencyValRec;
 String confirmationRec; // G = good to go = confirmed     // D = denied    // W = waiting for request
-String STOPstatusRec;     // C = continue     S = STOP
 String stopbitRec;
 String startbitRec;
 String separatorRec;
@@ -37,10 +35,8 @@ String separatorRec;
 char separator = ':';
 char startbit = '/'; // /
 String MacADDR;   // Mac adress of HM-10
-char platooningMode = NULL;  // L = leader     F = follower
-char wantedStatus = ' ';  // L = leader    // F = follower
+char emergencyVal = ' '; // N for no Y for yes
 char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
-char STOPstatus = ' ';     // C = continue     S = STOP
 char stopbit = '&';  // &
 
 
@@ -70,7 +66,6 @@ void loop() {
 
     case 'M':
       Serial.println("Leader mode has been chosen");
-      platooningMode = 'L'; //l for leader
       Serial.println("Fetching Mac-address...");
       caseChoice = '1';
       break;

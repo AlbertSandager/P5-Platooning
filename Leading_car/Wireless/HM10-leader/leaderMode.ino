@@ -1,12 +1,10 @@
 void leaderMode() {
   //if mac address is received and the connection is ready. Send out the full message in followermode
   if (MacADDRbool == true && connectionbool == true) {
-    wantedStatus = 'L';
+    emergencyVal = 'N';
     confirmation = 'W';
-    STOPstatus = 'C';
 
-    String package = String (startbit) + String(separator) + String(MacADDR) + String(separator) + String(platooningMode) + String(separator) + String(wantedStatus) + String(separator) + String(confirmation)
-                     + String(separator) + String(STOPstatus) + String(separator) + String(stopbit);
+    String package = String (startbit) + String(separator) + String(MacADDR) + String(separator) + String(emergencyVal) + String(separator) + String(confirmation) + String(separator) + String(stopbit);
 
     package.toCharArray(messageOut, package.length() + 1);
 

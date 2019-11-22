@@ -5,7 +5,6 @@ void transmitmsg() {
             digitalWrite(3, LOW);
       BTserial.write(messageOut[i]);  // transmit the predetermined character
            digitalWrite(3, HIGH);
-      //delayMicroseconds(1200); //so it doesn't go too fast for the receiver
     }
   }
 }
@@ -23,16 +22,10 @@ void receivemsg() {
   MacADDRRec = BTserial.readStringUntil(':');
   BTserial.read();
 
-  platooningModeRec = BTserial.readStringUntil(':');
-  BTserial.read();
-
-  wantedStatusRec = BTserial.readStringUntil(':');
+  emergencyValRec = BTserial.readStringUntil(':');
   BTserial.read();
 
   confirmationRec = BTserial.readStringUntil(':');
-  BTserial.read();
-
-  STOPstatusRec = BTserial.readStringUntil(':');
   BTserial.read();
 
   stopbitRec = BTserial.readStringUntil(':');

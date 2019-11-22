@@ -102,7 +102,6 @@ void MacADDRcontrol() {
     Serial.println("Wrong Mac-adress length!");
     Serial.println("Returning to menu");
     for (int j = 0; j < 15; j++)  {
-      platooningMode = NULL;
       tempMacADDR[j] = NULL;
       MacADDRcontrolInt = 0;
     }

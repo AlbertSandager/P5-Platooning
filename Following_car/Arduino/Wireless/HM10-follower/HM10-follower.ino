@@ -25,10 +25,8 @@ String CSisolated;
 char messageOut[24];
 char messageIn[24];
 String MacADDRRec;   // Mac adress of HM-10
-String platooningModeRec;  // L = leader     F = follower
-String wantedStatusRec;  // L = leader    // F = follower
+String emergencyValRec;
 String confirmationRec; // G = good to go = confirmed     // D = denied    // W = waiting for request
-String STOPstatusRec;     // C = continue     S = STOP
 String stopbitRec;
 String startbitRec;
 String separatorRec;
@@ -37,10 +35,8 @@ String separatorRec;
 char separator = ':';
 char startbit = '/'; // /
 String MacADDR;   // Mac adress of HM-10
-char platooningMode = NULL;  // L = leader     F = follower
-char wantedStatus = ' ';  // L = leader    // F = follower
+char emergencyVal = ' '; // N for no Y for yes
 char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
-char STOPstatus = ' ';     // C = continue     S = STOP
 char stopbit = '&';  // &
 
 
@@ -69,7 +65,7 @@ void loop() {
       Serial.println("Choose platooning mode");
       Serial.println("1. Leader mode");
       Serial.println("2. Follower mode");
-      while (platooningMode == NULL)  {
+      while (caseChoice == 'M')  {
         if (Serial.available() > 0) {
           char tempCasechoice = Serial.read();
           Serial.println(tempCasechoice);
@@ -80,14 +76,12 @@ void loop() {
           if (tempCasechoice == '1')  {
             caseChoice = tempCasechoice;
             Serial.println("Leader mode has been chosen");
-            platooningMode = 'L'; //l for leader
             Serial.println("Fetching Mac-address...");
           }
           delay(30);
           if (tempCasechoice == '2')  {
             caseChoice = tempCasechoice;
             Serial.println("Follower mode has been chosen");
-            platooningMode = 'F'; //f for follower
             Serial.println("Fetching Mac-address...");
           }
         }
