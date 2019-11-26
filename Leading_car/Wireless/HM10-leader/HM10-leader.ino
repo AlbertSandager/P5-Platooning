@@ -22,11 +22,11 @@ int WHILEcntrl = 0;
 String CSisolated;
 
 //variables for messaging
-char messageOut[24];
-char messageIn[24];
+char messageOut[20];
+char messageIn[20];
 String MacADDRRec;   // Mac adress of HM-10
+String MacADDRConRec;   // Mac adress of HM-10
 String emergencyValRec;
-String confirmationRec; // G = good to go = confirmed     // D = denied    // W = waiting for request
 String stopbitRec;
 String startbitRec;
 String separatorRec;
@@ -35,8 +35,8 @@ String separatorRec;
 char separator = ':';
 char startbit = '/'; // /
 String MacADDR;   // Mac adress of HM-10
-char emergencyVal = ' '; // N for no Y for yes
-char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
+char MacADDRCon = 'N';
+char emergencyVal = 'N'; // N for no Y for yes
 char stopbit = '&';  // &
 
 
@@ -72,7 +72,7 @@ void loop() {
 
     case '1':
       MacADDRcontrol();
-      if (MacADDRbool == true)  {
+      while (MacADDRbool == true)  {
         leaderMode();
       }
       break;
