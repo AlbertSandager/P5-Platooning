@@ -1,4 +1,5 @@
 void followerMode() {
+<<<<<<< HEAD
   //if mac address is received and the connection is ready. Send out the full message in followermode
   if (MacADDRbool == true) {
 <<<<<<< HEAD
@@ -34,12 +35,18 @@ void followerMode() {
 >>>>>>> parent of b25c5b7... lavet ting om
     //MacADDRCon = 'C';
     //confirmation = 'W';
+=======
 
-    String package = String (startbit) + String(separator) + String(MacADDR) + String(separator) + String(MacADDRCon) + String(separator) + String(emergencyVal) + String(separator) + String(stopbit);
+>>>>>>> parent of 11724f1... trying to fix :((((
 
-    package.toCharArray(messageOut, package.length() + 1);
+  receivemsg();
 
 
+  Serial.println(MacADDRRec);
+  Serial.println(emergencyValRec);
+  Serial.println(confirmationRec);
+
+<<<<<<< HEAD
     //main thing runs HERE!!!
     digitalWrite(13, HIGH);
 
@@ -60,4 +67,6 @@ void followerMode() {
       // do nothing
     }
   }
+=======
+>>>>>>> parent of 11724f1... trying to fix :((((
 }
