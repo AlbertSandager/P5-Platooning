@@ -35,8 +35,13 @@ String separatorRec;
 char separator = ':';
 char startbit = '/'; // /
 String MacADDR;   // Mac adress of HM-10
+<<<<<<< HEAD
 char emergencyVal = ' '; // N for no Y for yes
 char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
+=======
+char MacADDRCon = 'N';
+char emergencyVal = 'N'; // N for no Y for yes
+>>>>>>> parent of b25c5b7... lavet ting om
 char stopbit = '&';  // &
 
 
@@ -63,19 +68,29 @@ void loop() {
     case 'C':
       connectionControl();  //test the connection to the other car. If the connection is good, proceed to case M
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of b25c5b7... lavet ting om
       break;
 
     case 'M':
       Serial.println("Leader mode has been chosen");
       Serial.println("Fetching Mac-address...");
       caseChoice = '1';
+<<<<<<< HEAD
+>>>>>>> parent of b25c5b7... lavet ting om
+=======
 >>>>>>> parent of b25c5b7... lavet ting om
       break;
 
     case '1':
       MacADDRcontrol();
+<<<<<<< HEAD
       if (MacADDRbool == true)  {
+=======
+      while (MacADDRbool == true)  {
+>>>>>>> parent of b25c5b7... lavet ting om
         leaderMode();
       }
       break;

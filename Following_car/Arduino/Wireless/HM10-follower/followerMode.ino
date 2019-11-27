@@ -3,6 +3,7 @@ void followerMode() {
   //if mac address is received and the connection is ready. Send out the full message in followermode
   if (MacADDRbool == true) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     Serial.println("first message is being received now");
     receivemsg();
     Serial.println("Receivemsg has been run");
@@ -33,10 +34,13 @@ void followerMode() {
 
 =======
 >>>>>>> parent of b25c5b7... lavet ting om
+=======
+>>>>>>> parent of b25c5b7... lavet ting om
     //MacADDRCon = 'C';
     //confirmation = 'W';
 =======
 
+<<<<<<< HEAD
 >>>>>>> parent of 11724f1... trying to fix :((((
 
   receivemsg();
@@ -57,6 +61,23 @@ void followerMode() {
     Serial.println(MacADDRConRec);
     Serial.println(emergencyValRec);
 
+=======
+    String package = String (startbit) + String(separator) + String(MacADDR) + String(separator) + String(MacADDRCon) + String(separator) + String(emergencyVal) + String(separator) + String(stopbit);
+
+    package.toCharArray(messageOut, package.length() + 1);
+
+
+    //main thing runs HERE!!!
+    digitalWrite(13, HIGH);
+
+    transmitmsg();
+    receivemsg();
+
+    Serial.println(MacADDRRec);
+    Serial.println(MacADDRConRec);
+    Serial.println(emergencyValRec);
+
+>>>>>>> parent of b25c5b7... lavet ting om
     MacADDRCon = 'C';
   }
 

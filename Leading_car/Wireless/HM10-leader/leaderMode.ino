@@ -1,5 +1,6 @@
 void leaderMode() {
   //if mac address is received and the connection is ready. Send out the full message in followermode
+<<<<<<< HEAD
   if (MacADDRbool == true && connectionbool == true) {
     emergencyVal = 'N';
     confirmation = 'W';
@@ -20,12 +21,28 @@ void leaderMode() {
 >>>>>>> parent of 11724f1... trying to fix :((((
 
     package.toCharArray(messageOut, package.length() + 1);
+=======
+  if (MacADDRbool == true) {
+    //MacADDRCon = 'C';
+    //confirmation = 'W';
 
+    String package = String (startbit) + String(separator) + String(MacADDR) + String(separator) + String(MacADDRCon) + String(separator) + String(emergencyVal) + String(separator) + String(stopbit);
 
+    package.toCharArray(messageOut, package.length() + 1);
+
+>>>>>>> parent of b25c5b7... lavet ting om
+
+    //main thing runs HERE!!!
+    digitalWrite(13, HIGH);
+
+<<<<<<< HEAD
     //main thing runs HERE!!!
 <<<<<<< HEAD
     digitalWrite(13, HIGH);
 
+    transmitmsg();
+>>>>>>> parent of b25c5b7... lavet ting om
+=======
     transmitmsg();
 >>>>>>> parent of b25c5b7... lavet ting om
     receivemsg();
