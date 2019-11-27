@@ -19,15 +19,15 @@ void followerMode() {
 
 
 
-//    if (MacADDRRec != " " && MacADDRConRec != " " && emergencyValRec != " " && stopbitRec != " " &&
-//        startbitRec != " " && separatorRec != " ")  {
-//      String package = String (startbit) + String(separator) + String(MacADDR) +
-//                       String(separator) + String(MacADDRCon) + String(separator) + String(emergencyVal) +
-//                       String(separator) + String(stopbit);
-//      package.toCharArray(messageOut, package.length() + 1);
-//      transmitmsg();
-//
-//    }
+    if (MacADDRRec != " " && MacADDRConRec != " " && emergencyValRec != " " && stopbitRec != " " &&
+        startbitRec != " " && separatorRec != " ")  {
+      String package = String (startbit) + String(separator) + String(MacADDR) +
+                       String(separator) + String(MacADDRCon) + String(separator) + String(emergencyVal) +
+                       String(separator) + String(stopbit);
+      package.toCharArray(messageOut, package.length() + 1);
+      transmitmsg();
+
+    }
 
     //MacADDRCon = 'C';
     //confirmation = 'W';
