@@ -1,5 +1,4 @@
 void followerMode() {
-
   //if mac address is received and the connection is ready. Send out the full message in followermode
   if (MacADDRbool == true) {
     //MacADDRCon = 'C';
@@ -21,12 +20,13 @@ void followerMode() {
     Serial.println(emergencyValRec);
 
     MacADDRCon = 'C';
-
-
   }
 
   else {
-    Serial.print("Mac-address not fetched or connection not available");
-    caseChoice = 'M';
+    Serial.println("Mac-address not fetched or connection not available");
+    Serial.println("Please restart");
+    while (1)  {
+      // do nothing
+    }
   }
 }
