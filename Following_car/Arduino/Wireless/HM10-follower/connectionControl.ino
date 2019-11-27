@@ -35,6 +35,5 @@ void MacADDRcontrol() {
       MacADDRcontrolInt = 0;
     }
     MacADDRbool = false;
-    //    caseChoice = 'M';
   }
 }

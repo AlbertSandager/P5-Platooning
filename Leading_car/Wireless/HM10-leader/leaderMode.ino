@@ -20,7 +20,12 @@ void leaderMode() {
     Serial.println(MacADDRConRec);
     Serial.println(emergencyValRec);
 
-    MacADDRCon = 'C';
+    if (MacADDRRec.length() == 12) {
+      MacADDRCon = 'R';
+    }
+    else {
+      MacADDRCon = 'W';
+    }
 
 
   }

@@ -27,7 +27,7 @@ String separatorRec;
 char separator = ':';
 char startbit = '/'; // /
 String MacADDR;   // Mac adress of HM-10
-char MacADDRCon = 'N';
+char MacADDRCon = 'M';
 char emergencyVal = 'N'; // N for no Y for yes
 char stopbit = '&';  // &
 
