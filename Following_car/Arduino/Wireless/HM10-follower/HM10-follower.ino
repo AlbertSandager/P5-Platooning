@@ -26,6 +26,9 @@ char messageIn[20];
 String MacADDRRec;   // Mac adress of HM-10
 String MacADDRConRec;   // Mac adress of HM-10
 String emergencyValRec;
+<<<<<<< HEAD
+>>>>>>> parent of b25c5b7... lavet ting om
+=======
 >>>>>>> parent of b25c5b7... lavet ting om
 String stopbitRec;
 String startbitRec;
@@ -36,8 +39,13 @@ char separator = ':';
 char startbit = '/'; // /
 String MacADDR;   // Mac adress of HM-10
 <<<<<<< HEAD
+<<<<<<< HEAD
 char emergencyVal = ' '; // N for no Y for yes
 char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
+=======
+char MacADDRCon = 'N';
+char emergencyVal = 'N'; // N for no Y for yes
+>>>>>>> parent of b25c5b7... lavet ting om
 =======
 char MacADDRCon = 'N';
 char emergencyVal = 'N'; // N for no Y for yes

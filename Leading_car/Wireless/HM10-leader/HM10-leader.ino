@@ -36,8 +36,13 @@ char separator = ':';
 char startbit = '/'; // /
 String MacADDR;   // Mac adress of HM-10
 <<<<<<< HEAD
+<<<<<<< HEAD
 char emergencyVal = ' '; // N for no Y for yes
 char confirmation = ' '; // G = good to go = confirmed     // D = denied    // W = waiting for request
+=======
+char MacADDRCon = 'N';
+char emergencyVal = 'N'; // N for no Y for yes
+>>>>>>> parent of b25c5b7... lavet ting om
 =======
 char MacADDRCon = 'N';
 char emergencyVal = 'N'; // N for no Y for yes
@@ -69,7 +74,10 @@ void loop() {
       connectionControl();  //test the connection to the other car. If the connection is good, proceed to case M
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of b25c5b7... lavet ting om
 =======
 >>>>>>> parent of b25c5b7... lavet ting om
       break;
@@ -79,6 +87,9 @@ void loop() {
       Serial.println("Fetching Mac-address...");
       caseChoice = '1';
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of b25c5b7... lavet ting om
+=======
 >>>>>>> parent of b25c5b7... lavet ting om
 =======
 >>>>>>> parent of b25c5b7... lavet ting om
@@ -87,8 +98,11 @@ void loop() {
     case '1':
       MacADDRcontrol();
 <<<<<<< HEAD
+<<<<<<< HEAD
       if (MacADDRbool == true)  {
 =======
+=======
+>>>>>>> parent of b25c5b7... lavet ting om
       while (MacADDRbool == true)  {
 >>>>>>> parent of b25c5b7... lavet ting om
         leaderMode();
