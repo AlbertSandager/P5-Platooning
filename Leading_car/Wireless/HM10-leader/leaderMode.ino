@@ -2,13 +2,10 @@ void leaderMode() {
 
   //if mac address is received and the connection is ready. Send out the full message in followermode
   if (MacADDRbool == true) {
-    if (firstMessage) {
-      char MacADDRCon = 'M';
-      char emergencyVal = 'N';
-      String package = String (startbit) + String(separator) +
-                       String(MacADDR) + String(separator) + String(MacADDRCon) +
-                       String(separator) + String(emergencyVal) + String(separator) + String(stopbit);
+    //MacADDRCon = 'C';
+    //confirmation = 'W';
 
+<<<<<<< HEAD
       package.toCharArray(messageOut, package.length() + 1);
       transmitmsg();
       firstMessage = 0;
@@ -16,6 +13,17 @@ void leaderMode() {
     }
 
     digitalWrite(13, HIGH);
+=======
+    String package = String (startbit) + String(separator) + String(MacADDR) + String(separator) + String(MacADDRCon) + String(separator) + String(emergencyVal) + String(separator) + String(stopbit);
+
+    package.toCharArray(messageOut, package.length() + 1);
+
+
+    //main thing runs HERE!!!
+    digitalWrite(13, HIGH);
+
+    transmitmsg();
+>>>>>>> parent of b25c5b7... lavet ting om
     receivemsg();
 
     //Serial.println(MacADDRRec);
