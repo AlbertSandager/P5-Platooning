@@ -5,8 +5,10 @@ void connectionControl()  {
   if (ATcntrlVar == 0)  {
     for (int i = 0; i < sizeof(ATcommand); i++) {
       BTserial.write(ATcommand[i]); //send the command
+      //Serial.println(ATcommand[i]);
     }
     ATcntrlVar = 1;
+    //Serial.println("");
   }
 
   //Receiving the OK+CONN from the device if its connected
@@ -28,6 +30,7 @@ void connectionControl()  {
     delay(50);
 
     while (CSisolated == "OK+RESET") {
+      //Serial.println("I have read OK+reset");
       if (BTserial.available()) {
         for (int k = 0; k < sizeof(OKLOST) + 1; k++)  { // do it 50 times just to be sure
           OKLOST[k] = BTserial.read(); //fill up the receiving array
@@ -43,6 +46,7 @@ void connectionControl()  {
       delay(100);
       while (CSisolated == "OK+LOST")  {
         delay(50);
+        //Serial.println("I have read OK+LOST");
         if (BTserial.available()) {
           for (int k = 0; k < sizeof(OKCONN) + 1; k++)  { // do it 50 times just to be sure
             OKCONN[k] = BTserial.read(); //fill up the receiving array
@@ -53,6 +57,7 @@ void connectionControl()  {
           char CSseperator33 = connectionStatusStr3.indexOf('N') + 2;  //set up seperator
           CSisolated = "";
           CSisolated = connectionStatusStr3.substring(CSseperator3, CSseperator33);
+          //Serial.println(CSisolated);
         }
         Serial.println("");
         if (CSisolated == "OK+CONN")  {
@@ -73,15 +78,19 @@ void MacADDRcontrol() {
   if (tempMacADDR[0] == NULL)  {  //only send the message if our Mac adress is non-existant
     for (int i = 0; i < 8; i++) {
       BTserial.write(ADDRcommand[i]); //send the command
+      //Serial.print(ADDRcommand[i]);
     }
     Serial.println("");
   }
+
+  //Serial.println("");
   //fill up array with the received mac address
   delay(100);
 
   for (int k = 0; k < sizeof(tempMacADDR) + 1; k++)  { // do it 50 times just to be sure
     if (BTserial.available()) {
       tempMacADDR[k] = BTserial.read(); //fill up the receiving array
+      //Serial.print(tempMacADDR[k]);
     }
   }
 

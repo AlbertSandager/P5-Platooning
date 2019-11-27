@@ -25,7 +25,6 @@ void setup() {
   pinMode(7, OUTPUT);  // declares pin A0 as input
   digitalWrite(6, LOW);
   digitalWrite(7, HIGH);
-  //pinMode(2, INPUT_PULLUP);
   pinMode(5, INPUT_PULLUP);
 
 }

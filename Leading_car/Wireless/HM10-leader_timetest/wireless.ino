@@ -2,15 +2,16 @@ void transmitmsg() {
   for (int i = 0; i < sizeof(messageOut) + 1; i++)  {
     if (messageOut[i] != 10 && messageOut[i] != 13)
     {
+            digitalWrite(3, LOW);
       BTserial.write(messageOut[i]);  // transmit the predetermined character
-      //Serial.print(messageOut[i]);
-      //delayMicroseconds(1200); //so it doesn't go too fast for the receiver
+           digitalWrite(3, HIGH);
     }
   }
 }
 
 
 void receivemsg() {
+
   //Here the message is split up into the different values
   startbitRec = BTserial.readStringUntil('/');
   BTserial.read();
@@ -21,10 +22,10 @@ void receivemsg() {
   MacADDRRec = BTserial.readStringUntil(':');
   BTserial.read();
 
-  MacADDRConRec = BTserial.readStringUntil(':');
+  emergencyValRec = BTserial.readStringUntil(':');
   BTserial.read();
 
-  emergencyValRec = BTserial.readStringUntil(':');
+  confirmationRec = BTserial.readStringUntil(':');
   BTserial.read();
 
   stopbitRec = BTserial.readStringUntil(':');
