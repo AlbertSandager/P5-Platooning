@@ -60,6 +60,7 @@ void connectionControl()  {
           connectionbool = true;
           caseChoice = '1';
           WHILEcntrl = 1;
+          MacADDRcontrol();
         }
       }
     }

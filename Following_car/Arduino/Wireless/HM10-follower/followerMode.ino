@@ -1,7 +1,9 @@
 void followerMode() {
   //if mac address is received and the connection is ready. Send out the full message in followermode
   if (MacADDRbool == true) {
+    Serial.println("first message is being received now");
     receivemsg();
+    Serial.println("Receivemsg has been run");
     if (firstMessage && MacADDRRec != " ") {
       MacADDRCon = 'R'; // yeah, we received your mac address
       emergencyVal = 'I'; // no request for emergency stop yet

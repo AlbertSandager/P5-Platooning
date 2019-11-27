@@ -57,7 +57,6 @@ void loop() {
   switch (caseChoice) {
     case 'C':
       connectionControl();  //test the connection to the other car. If the connection is good, proceed to case M
-      MacADDRcontrol();
       break;
 
     case '1':

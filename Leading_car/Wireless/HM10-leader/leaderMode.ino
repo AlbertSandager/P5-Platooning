@@ -12,25 +12,27 @@ void leaderMode() {
       package.toCharArray(messageOut, package.length() + 1);
       transmitmsg();
       firstMessage = 0;
+      Serial.println("First message sent");
     }
 
-
     digitalWrite(13, HIGH);
-
-
     receivemsg();
 
-    Serial.println(MacADDRRec);
-    Serial.println(MacADDRConRec);
-    Serial.println(emergencyValRec);
+    //Serial.println(MacADDRRec);
+    //Serial.println(MacADDRConRec);
+    //Serial.println(emergencyValRec);
 
-    MacADDRCon = 'C';
+    //MacADDRCon = 'C';
 
 
   }
 
   else {
     Serial.print("Mac-address not fetched or connection not available");
-    caseChoice = 'M';
+    //caseChoice = 'M';
   }
+}
+
+void analyze()  {
+  
 }
