@@ -46,54 +46,8 @@ void setup() {
 
 
 void loop() {
-<<<<<<< HEAD
   MacADDRcontrol();
   while (MacADDRbool == true)  {
     followerMode();
-=======
-
-  switch (caseChoice) {
-    case 'C':
-      //connectionControl();  //test the connection to the other car. If the connection is good, proceed to case M
-      break;
-
-    case 'M':
-      Serial.println("Choose platooning mode");
-      Serial.println("1. Leader mode");
-      Serial.println("2. Follower mode");
-      while (caseChoice == 'M')  {
-        if (Serial.available() > 0) {
-          char tempCasechoice = Serial.read();
-          Serial.println(tempCasechoice);
-          if (tempCasechoice != '1' && tempCasechoice != '2') {  //  & tempCasechoice != NULL
-            Serial.println("Your choice is invalid");
-          }
-          delay(30);
-          if (tempCasechoice == '1')  {
-            caseChoice = tempCasechoice;
-            Serial.println("Leader mode has been chosen");
-            Serial.println("Fetching Mac-address...");
-          }
-          delay(30);
-          if (tempCasechoice == '2')  {
-            caseChoice = tempCasechoice;
-            Serial.println("Follower mode has been chosen");
-            Serial.println("Fetching Mac-address...");
-          }
-        }
-      }
-      break;
-
-    case '1':
-      Serial.println("Running in leading mode mode");
-      break;
-
-    case '2':
-      MacADDRcontrol();
-      //while (MacADDRbool == true)  {
-        followerMode();
-      //}
-      break;
->>>>>>> parent of cba6e97... det hele sejler :(((((
   }
 }
