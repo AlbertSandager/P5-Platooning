@@ -94,9 +94,9 @@ void loop() {
 
     case '2':
       MacADDRcontrol();
-      //while (MacADDRbool == true)  {
+      while (MacADDRbool == true)  {
         followerMode();
-      //}
+      }
       break;
   }
 }
