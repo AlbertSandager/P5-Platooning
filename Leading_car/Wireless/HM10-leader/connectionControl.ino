@@ -1,7 +1,7 @@
 void connectionControl()  {
 
   //Sending AT+RESET to make sure it connects to the other device (only done once)
-  delay(700);
+  delay(2000);
   if (ATcntrlVar == 0)  {
     for (int i = 0; i < sizeof(ATcommand); i++) {
       BTserial.write(ATcommand[i]); //send the command
@@ -58,7 +58,7 @@ void connectionControl()  {
         if (CSisolated == "OK+CONN")  {
           Serial.println("Connection established");
           connectionbool = true;
-          caseChoice = 'M';
+          caseChoice = '1';
           WHILEcntrl = 1;
         }
       }

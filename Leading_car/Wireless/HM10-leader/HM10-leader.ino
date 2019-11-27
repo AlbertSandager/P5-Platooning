@@ -20,6 +20,7 @@ bool connectionbool = false;
 int ATcntrlVar = 0;
 int WHILEcntrl = 0;
 String CSisolated;
+int firstMessage = 1;
 
 //variables for messaging
 char messageOut[20];
@@ -35,17 +36,14 @@ String separatorRec;
 char separator = ':';
 char startbit = '/'; // /
 String MacADDR;   // Mac adress of HM-10
-char MacADDRCon = 'N';
-char emergencyVal = 'N'; // N for no Y for yes
+char MacADDRCon = ' ';
+char emergencyVal = ' '; // N for no Y for yes
 char stopbit = '&';  // &
 
 
-
 void setup() {
-
   pinMode(13, OUTPUT);
   digitalWrite(13, LOW);
-
   Serial.begin(115200);
   Serial.print("Sketch:   ");   Serial.println(__FILE__);
   Serial.print("Uploaded: ");   Serial.println(__DATE__);
@@ -55,23 +53,14 @@ void setup() {
   delay(100);
 }
 
-
-
 void loop() {
-
   switch (caseChoice) {
     case 'C':
       connectionControl();  //test the connection to the other car. If the connection is good, proceed to case M
-      break;
-
-    case 'M':
-      Serial.println("Leader mode has been chosen");
-      Serial.println("Fetching Mac-address...");
-      caseChoice = '1';
+      MacADDRcontrol();
       break;
 
     case '1':
-      MacADDRcontrol();
       while (MacADDRbool == true)  {
         leaderMode();
       }
