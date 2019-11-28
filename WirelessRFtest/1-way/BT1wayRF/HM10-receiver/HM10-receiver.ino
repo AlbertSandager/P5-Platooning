@@ -15,7 +15,6 @@ void setup()
 
 void loop()
 {
-  // Read from the Bluetooth module and send to the Arduino Serial Monitor
   if (mySerial.available())
   {
     receive = mySerial.read();
