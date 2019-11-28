@@ -1,4 +1,4 @@
-void sendmsg(int x){
+void sendmsg(int x, int y, int z){
     String msg = '#' + String(x) + '!' + String(x) + '!' + String(x) + '/';
   mySerial.print(msg);                              //Send "tal" with the RF-module. 
   Serial.println(""); Serial.print("String sent to next car: "); Serial.print(msg); Serial.println(""); //Serial print for debugging

@@ -14,7 +14,7 @@ void receivemsg() {
     mySerial.flush();
     String str = String(instring);
     char startChar = str.charAt(0);                //Check the first character in the array
-    if (startChar == '=') {                        //If the start-character is correct, proceed to analyze the data.
+    if (startChar == '#') {                        //If the start-character is correct, proceed to analyze the data.
       splitUp(str);                                //split up the received string
     }
   }
@@ -24,7 +24,7 @@ void receivemsg() {
 
 void splitUp(String A ) //Function for splitting up the received string. Using seperators, it makes 3 substrings and converts them to ints. 
 {
-  int startSeperator = A.indexOf('=') + 1; 
+  int startSeperator = A.indexOf('#') + 1; 
   int seperatorEt = A.indexOf('!');
   int seperatorTo = A.indexOf('!', seperatorEt + 1);
   int seperatorTre = A.indexOf('/');
@@ -32,7 +32,7 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
   String sub2 = A.substring(seperatorEt + 1, seperatorTo);
   String sub3 = A.substring(seperatorTo + 1, seperatorTre);
 
-  int PWM_H_bridge = sub1.toInt(); //value for motorspeed
-  int PWM_Servo = sub2.toInt(); //value for servo
-  int carStop = sub3.toInt(); //carStop
+  val1 = sub1.toInt(); //value for motorspeed
+  val2 = sub2.toInt(); //value for servo
+  val3 = sub3.toInt(); //carStop
   }
