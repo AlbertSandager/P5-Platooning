@@ -23,5 +23,6 @@ void loop()
       delay(500);
       digitalWrite(wiredOutput, LOW);
     }
+    else digitalWrite(wiredOutput, LOW);
   }
 }
