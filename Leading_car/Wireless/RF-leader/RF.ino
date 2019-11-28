@@ -1,13 +1,14 @@
 void sendmsg() {
   String msg = String(startbyte) + String(address) + String(seperator) + String(addressCon) + String(seperator) + String(emergencyVal) + String(stopbyte);
   mySerial.print(msg);                              //Send "tal" with the RF-module.
-  Serial.println(""); Serial.print("String sent to next car: "); Serial.print(msg); Serial.println(""); //Serial print for debugging
+  //Serial.println(""); Serial.print("String sent to next car: "); Serial.print(msg); Serial.println(""); //Serial print for debugging
   mySerial.flush();
-  delay(10);
+  //delay(1);
 }
 
 
 void receivemsg() {
+  listening = true;
   if (mySerial.available() > 0 )
   {
     mySerial.readBytesUntil(stopbyte, instring, NRCHAR); //break character = /
@@ -32,5 +33,7 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
   addressRec = A.substring(startSeperator, seperatorEt);
   addressConRec = A.substring(seperatorEt + 1, seperatorTo);
   emergencyValRec = A.substring(seperatorTo + 1, seperatorTre);
+
+  listening = false;
 
 }

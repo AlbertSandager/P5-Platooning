@@ -13,8 +13,8 @@ char instring[NRCHAR]; //array for received data.
 char startbyte = '/';
 char seperator = ':';
 String address = "V5WBFS4H03X0";   // Mac adress of HM-10
-char addressCon = 'N';   // Mac adress of HM-10
-char emergencyVal = 'N'; // N for no Y for yes
+char addressCon = 'C';   // Mac adress of HM-10
+char emergencyVal = 'D'; // N for no Y for yes
 char stopbyte = '&';
 
 
@@ -22,6 +22,7 @@ char stopbyte = '&';
 String addressRec;
 String addressConRec;
 String emergencyValRec;
+bool listening = true;
 
 
 void setup() {
@@ -38,9 +39,13 @@ void setup() {
 void loop() {
 
   receivemsg();
-  
+
+  if (listening == false) {
+    sendmsg();
+  }
+
   Serial.println(addressRec);
   Serial.println(addressConRec);
-  Serial.println(addressConRec);
+  Serial.println(emergencyVal);
 
 }
