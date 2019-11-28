@@ -19,7 +19,7 @@ char stopbyte = '&';
 
 
 //Variables for receiveing
-String addressRec;
+String addressRec = " ";
 String addressConRec;
 String emergencyValRec;
 bool listening = true;

@@ -3,7 +3,6 @@ void sendmsg() {
   mySerial.print(msg);                              //Send "tal" with the RF-module.
   //Serial.println(""); Serial.print("String sent to next car: "); Serial.print(msg); Serial.println(""); //Serial print for debugging
   mySerial.flush();
-  //delay(1);
 }
 
 
@@ -35,6 +34,5 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
   emergencyValRec = A.substring(seperatorTo + 1, seperatorTre);
 
   listening = false;
-
-
+  
 }
