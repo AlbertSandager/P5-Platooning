@@ -5,15 +5,27 @@
 
 SoftwareSerial mySerial(11, 12); // RX, TX
 
-int val1;
-int val2;
-int val3;
 
 char instring[NRCHAR]; //array for received data.
 
 
-void setup()
-{
+//Variables for sending
+char startbyte = '/';
+char seperator = ':';
+String address = "V5WBFS4H03X0";   // Mac adress of HM-10
+char addressCon = 'N';   // Mac adress of HM-10
+char emergencyVal = 'N'; // N for no Y for yes
+char stopbyte = '&';
+
+
+//Variables for receiveing
+String addressRec;
+String addressConRec;
+String emergencyValRec;
+
+
+void setup() {
+
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
   Serial.flush();
@@ -23,10 +35,12 @@ void setup()
   mySerial.flush();
 }
 
-void loop() // run over and over
-{
+void loop() {
+
   receivemsg();
-  Serial.println(val1);
-  Serial.println(val2);
-  Serial.println(val3);
+  
+  Serial.println(addressRec);
+  Serial.println(addressConRec);
+  Serial.println(addressConRec);
+
 }
