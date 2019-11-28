@@ -8,7 +8,7 @@ import serial
 
 os.nice(20)
 
-ser = serial.Serial('/dev/ttyACM1',115200)
+ser = serial.Serial('/dev/ttyACM0',115200)
 ser.close()
 ser.open()
 time.sleep(5)
