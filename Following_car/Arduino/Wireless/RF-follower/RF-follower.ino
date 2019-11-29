@@ -13,12 +13,13 @@ char instring[NRCHAR]; //array for received data.
 char startbyte = '/'; // Startbyte for the message
 char seperator = ':'; // Seperator for the message
 String address = "V5WBFS4H03X0"; // Mac adress of RF module
-char addressCon = 'M'; // Confirmation that the MAC-address has been received
-char emergencyVal = 'I'; // Emergency stop C for confirmed D for denied and I for no request
+char addressCon = ' '; // Confirmation that the MAC-address has been received
+char emergencyVal = ' '; // Emergency stop C for confirmed D for denied and I for no request
 char stopbyte = '&'; // Stopbyte for the message
 
 
 //Variables for receiveing
+String addressRecOld = " ";
 String addressRec = " ";
 String addressConRec;
 String emergencyValRec;
@@ -47,9 +48,7 @@ void loop() {
     sendmsg();
   }
 
-  if (addressRec != " " && addressRec.length() == 12) {
-    addressCon = 'R';
-  }
+ 
 
   //printing received values
   Serial.println(addressRec);
