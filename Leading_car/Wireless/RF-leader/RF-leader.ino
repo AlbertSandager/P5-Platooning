@@ -14,12 +14,13 @@ char startbyte = '/'; // Startbyte for the message
 char seperator = ':'; // Seperator for the message
 String address = "HCY5RR4N68KW"; // Mac adress of RF module
 char addressCon = 'M'; // Confirmation that the MAC-address has been received
-char emergencyVal = 'I'; // Emergency stop N for no Y for yes
+char emergencyVal = 'N'; // Emergency stop N for no Y for yes
 char stopbyte = '&'; // Stopbyte for the message
 
 
 //Variables for receiveing
 String addressRec = " ";
+String addressRecOld = " ";
 String addressConRec;
 String emergencyValRec;
 bool listening = true;
@@ -31,6 +32,7 @@ void setup() {
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
   Serial.flush();
+  pinMode(4, INPUT);
 
   // set the data rate for the SoftwareSerial port
   mySerial.begin(9600);

@@ -39,6 +39,26 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
   addressConRec = A.substring(seperatorEt + 1, seperatorTo);
   emergencyValRec = A.substring(seperatorTo + 1, seperatorTre);
 
+  if (addressRecOld != " ") {
+    addressCon = 'M';
+  }
+  if (addressRecOld == addressRec) {
+    addressCon = 'R';
+  }
+  else if (addressRecOld != addressRec && addressRecOld != " ") {
+    addressCon = 'W';
+  }
+  if (digitalRead(4) == HIGH)  {
+    emergencyVal = 'Y';
+  } 
+  else {
+    emergencyVal = 'N';
+  }
+  if (digitalRead(8) == HIGH) {
+    address = "HCY5RR4N68KT"; // 1 character changed
+  }
+
+
   listening = false;
 
 }

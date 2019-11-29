@@ -49,14 +49,19 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
   else if (addressRecOld != addressRec && addressRecOld != " ") {
     addressCon = 'W';
   }
-  if (emergencyValRec == 'Y' && addressCon == 'W' || addressCon == 'M') {
+  if (emergencyValRec == "Y" && addressCon == "W" || addressCon == "M") {
     emergencyVal = 'D';
   }
-  if (emergencyValRec == 'N') {
+  if (emergencyValRec == "N") {
     emergencyVal = 'I';
   }
-
+  if (emergencyValRec == "Y" && addressRecOld == addressRec)  {
+    emergencyVal = 'C';
+  }
+  if (addressRecOld == " ") {
   addressRecOld = addressRec;
+  }
+  
   listening = false;
 
 }
