@@ -13,13 +13,13 @@ char instring[NRCHAR]; //array for received data.
 char startbyte = '/'; // Startbyte for the message
 char seperator = ':'; // Seperator for the message
 String address = "HCY5RR4N68KW"; // Mac adress of RF module
-char addressCon = 'C'; // Confirmation that the MAC-address has been received
-char emergencyVal = 'N'; // Emergency stop N for no Y for yes
+char addressCon = 'M'; // Confirmation that the MAC-address has been received
+char emergencyVal = 'I'; // Emergency stop N for no Y for yes
 char stopbyte = '&'; // Stopbyte for the message
 
 
 //Variables for receiveing
-String addressRec;
+String addressRec = " ";
 String addressConRec;
 String emergencyValRec;
 bool listening = true;
@@ -51,6 +51,10 @@ void loop() {
   //if message is received then run the sending
   if (listening == false) {
     sendmsg();
+  }
+
+  if (addressRec != " " && addressRec.length() == 12) {
+    addressCon = 'R';
   }
 
   //printing received values
