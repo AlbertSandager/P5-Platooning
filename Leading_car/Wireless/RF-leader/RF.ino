@@ -48,14 +48,17 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
   else if (addressRecOld != addressRec && addressRecOld != " ") {
     addressCon = 'W';
   }
-  if (digitalRead(4) == HIGH)  {
+  if (digitalRead(4) == LOW)  {
     emergencyVal = 'Y';
   } 
   else {
     emergencyVal = 'N';
   }
-  if (digitalRead(8) == HIGH) {
+  if (digitalRead(8) == LOW) {
     address = "HCY5RR4N68KT"; // 1 character changed
+  }
+  else {
+    address = "HCY5RR4N68KW";
   }
 
 

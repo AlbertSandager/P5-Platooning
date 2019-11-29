@@ -32,7 +32,8 @@ void setup() {
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
   Serial.flush();
-  pinMode(4, INPUT);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(8, INPUT_PULLUP);
 
   // set the data rate for the SoftwareSerial port
   mySerial.begin(9600);
