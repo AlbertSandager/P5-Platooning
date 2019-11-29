@@ -10,16 +10,16 @@ char instring[NRCHAR]; //array for received data.
 
 
 //Variables for sending
-char startbyte = '/';
-char seperator = ':';
-String address = "HCY5RR4N68KW";   // Mac adress of HM-10
-char addressCon = 'C';   // Mac adress of HM-10
-char emergencyVal = 'N'; // N for no Y for yes
-char stopbyte = '&';
+char startbyte = '/'; // Startbyte for the message
+char seperator = ':'; // Seperator for the message
+String address = "HCY5RR4N68KW"; // Mac adress of RF module
+char addressCon = 'C'; // Confirmation that the MAC-address has been received
+char emergencyVal = 'N'; // Emergency stop N for no Y for yes
+char stopbyte = '&'; // Stopbyte for the message
 
 
 //Variables for receiveing
-String addressRec = " ";
+String addressRec;
 String addressConRec;
 String emergencyValRec;
 bool listening = true;
@@ -38,18 +38,22 @@ void setup() {
 }
 
 void loop() {
-  
-  if(startchatting==true){
+
+  //sending first message to start the boldkast
+  if (startchatting == true) {
     sendmsg();
-    startchatting=false;
+    startchatting = false;
   }
-  
+
+  //listening for message
   receivemsg();
 
+  //if message is received then run the sending
   if (listening == false) {
     sendmsg();
   }
 
+  //printing received values
   Serial.println(addressRec);
   Serial.println(addressConRec);
   Serial.println(emergencyVal);

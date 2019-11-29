@@ -1,3 +1,4 @@
+//sending message
 void sendmsg() {
   String msg = String(startbyte) + String(address) + String(seperator) + String(addressCon) + String(seperator) + String(emergencyVal) + String(stopbyte);
   mySerial.print(msg);                              //Send "tal" with the RF-module.
@@ -5,7 +6,7 @@ void sendmsg() {
   mySerial.flush();
 }
 
-
+//receiveing message
 void receivemsg() {
   listening = true;
   if (mySerial.available() > 0 )
@@ -21,7 +22,7 @@ void receivemsg() {
 }
 
 
-
+//splitting message up
 void splitUp(String A ) //Function for splitting up the received string. Using seperators, it makes 3 substrings and converts them to ints.
 {
 

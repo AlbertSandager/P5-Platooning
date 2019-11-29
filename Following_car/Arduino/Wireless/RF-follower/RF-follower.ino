@@ -10,12 +10,12 @@ char instring[NRCHAR]; //array for received data.
 
 
 //Variables for sending
-char startbyte = '/';
-char seperator = ':';
-String address = "V5WBFS4H03X0";   // Mac adress of HM-10
-char addressCon = 'C';   // Mac adress of HM-10
-char emergencyVal = 'D'; // N for no Y for yes
-char stopbyte = '&';
+char startbyte = '/'; // Startbyte for the message
+char seperator = ':'; // Seperator for the message
+String address = "V5WBFS4H03X0"; // Mac adress of RF module
+char addressCon = 'C'; // Confirmation that the MAC-address has been received
+char emergencyVal = 'D'; // Emergency stop C for confirmed D for denied and I for no request
+char stopbyte = '&'; // Stopbyte for the message
 
 
 //Variables for receiveing
@@ -39,12 +39,15 @@ void setup() {
 
 void loop() {
 
+  //listening for message
   receivemsg();
 
+  //if message is received then run the sending
   if (listening == false) {
     sendmsg();
   }
 
+  //printing received values
   Serial.println(addressRec);
   Serial.println(addressConRec);
   Serial.println(emergencyVal);
