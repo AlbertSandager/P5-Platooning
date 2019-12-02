@@ -2,9 +2,9 @@
 void sendmsg() {
   String msg = String(startbyte) + String(address) + String(seperator) + String(addressCon) + String(seperator) + String(emergencyVal) + String(stopbyte);
   mySerial.print(msg);                              //Send "tal" with the RF-module.
-  Serial.println("Following information sent:");
-  Serial.println(msg);
-  //Serial.println(""); Serial.print("String sent to next car: "); Serial.print(msg); Serial.println(""); //Serial print for debugging
+//  Serial.println("Following information sent:");
+//  Serial.println(msg);
+//  Serial.println(""); Serial.print("String sent to next car: "); Serial.print(msg); Serial.println(""); //Serial print for debugging
   mySerial.flush();
 }
 

@@ -51,8 +51,8 @@ void loop() {
  
 
   //printing received values
-  Serial.println(addressRec);
-  Serial.println(addressConRec);
-  Serial.println(emergencyValRec);
+//  Serial.println(addressRec);
+//  Serial.println(addressConRec);
+//  Serial.println(emergencyValRec);
 
 }

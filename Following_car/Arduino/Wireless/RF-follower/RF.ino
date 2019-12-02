@@ -17,9 +17,9 @@ void receivemsg() {
     mySerial.readBytesUntil(stopbyte, instring, NRCHAR); //break character = /
     mySerial.flush();
     String str = String(instring);
-//    Serial.println("Following information received:");
-//    Serial.println(str);
-//    Serial.println();
+    Serial.println("Following information received:");
+    Serial.println(str);
+    Serial.println();
     char startChar = str.charAt(0);                //Check the first character in the array
     if (startChar == startbyte) {                        //If the start-character is correct, proceed to analyze the data.
       splitUp(str);                                //split up the received string
