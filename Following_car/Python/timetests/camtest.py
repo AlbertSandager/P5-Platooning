@@ -96,7 +96,7 @@ class DetectBall(picamera.array.PiRGBAnalysis):
         
         #if dot is gone then steer to middle
         if anglepwm == 65:
-            anglepwm = 33
+            anglepwm = 32
         
         SetAngle(anglepwm)
         
