@@ -2,9 +2,9 @@
 void sendmsg() {
   String msg = String(startbyte) + String(address) + String(seperator) + String(addressCon) + String(seperator) + String(emergencyVal) + String(stopbyte);
   mySerial.print(msg);                              //Send "tal" with the RF-module.
-//  Serial.println("Following information sent:");
-//  Serial.println(msg);
-//  Serial.println(""); Serial.print("String sent to next car: "); Serial.print(msg); Serial.println(""); //Serial print for debugging
+  //  Serial.println("Following information sent:");
+  //  Serial.println(msg);
+  //  Serial.println(""); Serial.print("String sent to next car: "); Serial.print(msg); Serial.println(""); //Serial print for debugging
   mySerial.flush();
 }
 
@@ -32,12 +32,12 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
 {
 
   char startSeperator = A.indexOf(startbyte) + 1;
-  char seperatorEt = A.indexOf(seperator);
-  char seperatorTo = A.indexOf(seperator, seperatorEt + 1);
-  char seperatorTre = A.indexOf(stopbyte);
-  addressRec = A.substring(startSeperator, seperatorEt);
-  addressConRec = A.substring(seperatorEt + 1, seperatorTo);
-  emergencyValRec = A.substring(seperatorTo + 1, seperatorTre);
+  char seperatorOne = A.indexOf(seperator);
+  char seperatorTwo = A.indexOf(seperator, seperatorOne + 1);
+  char seperatorThree = A.indexOf(stopbyte);
+  addressRec = A.substring(startSeperator, seperatorOne);
+  addressConRec = A.substring(seperatorOne + 1, seperatorTwo);
+  emergencyValRec = A.substring(seperatorTwo + 1, seperatorThree);
 
   if (addressRecOld != " ") {
     addressCon = 'M';
@@ -50,7 +50,7 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
   }
   if (digitalRead(4) == LOW)  {
     emergencyVal = 'Y';
-  } 
+  }
   else {
     emergencyVal = 'N';
   }

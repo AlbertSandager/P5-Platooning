@@ -33,13 +33,13 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
 {
 
   char startSeperator = A.indexOf(startbyte) + 1;
-  char seperatorEt = A.indexOf(seperator);
-  char seperatorTo = A.indexOf(seperator, seperatorEt + 1);
-  char seperatorTre = A.indexOf(stopbyte);
-  addressRec = A.substring(startSeperator, seperatorEt);
-  addressConRec = A.substring(seperatorEt + 1, seperatorTo);
-  emergencyValRec = A.substring(seperatorTo + 1, seperatorTre);
-  
+  char seperatorOne = A.indexOf(seperator);
+  char seperatorTwo = A.indexOf(seperator, seperatorOne + 1);
+  char seperatorThree = A.indexOf(stopbyte);
+  addressRec = A.substring(startSeperator, seperatorOne);
+  addressConRec = A.substring(seperatorOne + 1, seperatorTwo);
+  emergencyValRec = A.substring(seperatorTwo + 1, seperatorThree);
+
   if (addressRecOld != " ") {
     addressCon = 'M';
   }
@@ -59,9 +59,9 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
     emergencyVal = 'C';
   }
   if (addressRecOld == " ") {
-  addressRecOld = addressRec;
+    addressRecOld = addressRec;
   }
-  
+
   listening = false;
 
 }
