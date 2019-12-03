@@ -31,13 +31,13 @@ void receivemsg() {
 void splitUp(String A ) //Function for splitting up the received string. Using seperators, it makes 3 substrings and converts them to ints.
 {
 
-  char startSeperator = A.indexOf(startbyte) + 1;
-  char seperatorOne = A.indexOf(seperator);
-  char seperatorTwo = A.indexOf(seperator, seperatorOne + 1);
-  char seperatorThree = A.indexOf(stopbyte);
-  addressRec = A.substring(startSeperator, seperatorOne);
-  addressConRec = A.substring(seperatorOne + 1, seperatorTwo);
-  emergencyValRec = A.substring(seperatorTwo + 1, seperatorThree);
+  char startSeperator = A.indexOf(startbyte) + 1; //finding the startbyte
+  char seperatorOne = A.indexOf(seperator); //finding first seperator
+  char seperatorTwo = A.indexOf(seperator, seperatorOne + 1); //finding second seperator
+  char seperatorThree = A.indexOf(stopbyte); //finding stopbyte
+  addressRec = A.substring(startSeperator, seperatorOne); //reading everything between the startbyte and the first seperator
+  addressConRec = A.substring(seperatorOne + 1, seperatorTwo); //reading everything between the first seperator and the second seperator
+  emergencyValRec = A.substring(seperatorTwo + 1, seperatorThree); //reading everything between the second seperator and the stopbyte
 
   if (addressRecOld != " ") {
     addressCon = 'M';
