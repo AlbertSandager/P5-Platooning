@@ -1,6 +1,3 @@
-#include <Wire.h>
-#include <SoftwareSerial.h>
-SoftwareSerial mySerial(11, 12);
 unsigned long starttime;
 unsigned long endtime;
 int wiredInput = 9;
@@ -12,8 +9,8 @@ void setup()
   Serial.begin(115200);
   Serial.flush();
   // set the data rate for the SoftwareSerial port
-  mySerial.begin(9600);
-  mySerial.flush();
+  Serial3.begin(9600);
+  Serial3.flush();
 }
 
 void loop()
@@ -21,8 +18,8 @@ void loop()
   if (choker == 0)
   {
     String out = String('G');
-    mySerial.print(out);    // sender det der blev skrevet i serial monitor over RF
-    mySerial.flush();
+    Serial3.print(out);    // sender det der blev skrevet i serial monitor over RF
+    Serial3.flush();
     starttime = micros();      // take the starttime of the transmission
     choker = 1;
   }
@@ -30,6 +27,7 @@ void loop()
   if (digitalRead(wiredInput) == HIGH)  {
     endtime = micros();                         // stop the timer
     unsigned long total = endtime - starttime;  //calculate total transmission time
+    Serial.println(total);
     delay(1000);
     choker = 0;
   }

@@ -1,7 +1,5 @@
-#include <SoftwareSerial.h>
-SoftwareSerial mySerial(11, 12); // RX, TX
 int wiredOutput = 7;
-char receive;
+char receiveVal;
 
 void setup()
 {
@@ -9,16 +7,16 @@ void setup()
   Serial.begin(115200);
   Serial.flush();
   // set the data rate for the SoftwareSerial port
-  mySerial.begin(9600);
-  mySerial.flush();
+  Serial3.begin(9600);
+  Serial3.flush();
 }
 
 void loop()
 {
-  if (mySerial.available())
+  if (Serial3.available())
   {
-    receive = mySerial.read();
-    if (receive == 'G') {
+    receiveVal = Serial3.read();
+    if (receiveVal == 'G') {
       digitalWrite(wiredOutput, HIGH);
       delay(500);
       digitalWrite(wiredOutput, LOW);
