@@ -6,14 +6,14 @@
 unsigned long t0 = 0;
 const unsigned long ts = 5;
 
-float T = 0.015;
+float T = 0.05;
 float PWM_OUT = 0;
 
 int servocounter = 0;
 
 
-float Kp = 3;
-float Kv = 3;
+float Kp = 10;
+float Kv = 15;
 
 float ref = 32;
 float lastref = 32;
@@ -183,7 +183,7 @@ void servoLoop(){
 void dcmotorLoop(){
  
  if(digitalRead(button) == LOW){
- DUTY_DC = 20;
+ DUTY_DC = 30;
  toPWM_DC = (1 / DUTY_DC) * 100;
  
  OCR2B = ((OCR2A + 1) / toPWM_DC) - 1;
