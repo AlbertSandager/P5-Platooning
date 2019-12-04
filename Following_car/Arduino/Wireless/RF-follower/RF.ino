@@ -57,6 +57,9 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
   }
   if (emergencyValRec == "Y" && addressRecOld == addressRec)  {
     emergencyVal = 'C';
+    while (digitalRead(4) == HIGH) {
+      //do nothing until emergency stop button is pressed
+    }
   }
   if (addressRecOld == " ") {
     addressRecOld = addressRec;

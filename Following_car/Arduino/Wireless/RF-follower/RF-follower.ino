@@ -36,6 +36,8 @@ void setup() {
   // set the data rate for the SoftwareSerial port
   mySerial.begin(9600);
   mySerial.flush();
+
+  pinMode(4, INPUT_PULLUP); //pin for emergency stop button (for getting out of emergency stop)
 }
 
 void loop() {
