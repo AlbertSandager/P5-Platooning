@@ -3,7 +3,7 @@
 #define NRCHAR 20
 #define OUTCHAR 100
 
-SoftwareSerial mySerial(11, 12); // RX, TX
+SoftwareSerial mySerial(10, 11); // RX, TX
 
 
 char instring[NRCHAR]; //array for received data.
@@ -32,8 +32,8 @@ void setup() {
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
   Serial.flush();
-  pinMode(4, INPUT_PULLUP);
-  pinMode(8, INPUT_PULLUP);
+  pinMode(6, INPUT_PULLUP);
+  pinMode(7, INPUT_PULLUP);
 
   // set the data rate for the SoftwareSerial port
   mySerial.begin(9600);
@@ -61,8 +61,8 @@ void loop() {
   }
 
   //printing received values
-//  Serial.println(addressRec);
-//  Serial.println(addressConRec);
-//  Serial.println(emergencyVal);
+   // Serial.println(addressRec);
+  // Serial.println(addressConRec);
+   //Serial.println(emergencyVal);
 
 }

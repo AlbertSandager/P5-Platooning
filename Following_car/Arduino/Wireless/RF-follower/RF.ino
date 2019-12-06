@@ -2,10 +2,10 @@
 void sendmsg() {
   String msg = String(startbyte) + String(address) + String(seperator) + String(addressCon) + String(seperator) + String(emergencyVal) + String(stopbyte);
   mySerial.print(msg);
-  //Serial.println("Following information sent:");
-  //Serial.println(msg);
-  //Send "tal" with the RF-module.
-  //Serial.println(""); Serial.print("String sent to next car: "); Serial.print(msg); Serial.println(""); //Serial print for debugging
+  Serial.print("Sent: ");
+  Serial.println(msg);
+  Serial.println();
+
   mySerial.flush();
 }
 
@@ -17,9 +17,8 @@ void receivemsg() {
     mySerial.readBytesUntil(stopbyte, instring, NRCHAR); //break character = /
     mySerial.flush();
     String str = String(instring);
-    Serial.println("Following information received:");
+    Serial.print("Received: ");
     Serial.println(str);
-    Serial.println();
     char startChar = str.charAt(0);                //Check the first character in the array
     if (startChar == startbyte) {                        //If the start-character is correct, proceed to analyze the data.
       splitUp(str);                                //split up the received string
@@ -57,9 +56,9 @@ void splitUp(String A ) //Function for splitting up the received string. Using s
   }
   if (emergencyValRec == "Y" && addressRecOld == addressRec)  {
     emergencyVal = 'C';
-    while (digitalRead(4) == HIGH) {
-      //do nothing until emergency stop button is pressed
-    }
+    //  while (digitalRead(4) == HIGH) {
+    //do nothing until emergency stop button is pressed
+    //}
   }
   if (addressRecOld == " ") {
     addressRecOld = addressRec;
