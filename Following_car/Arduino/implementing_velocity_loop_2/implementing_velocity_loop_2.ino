@@ -12,7 +12,7 @@ float PWM_OUT = 0;
 int servocounter = 0;
 
 unsigned long timeold = 0;
-float Kp = 2;
+float Kp = 10;
 float Kv = 2;
 
 float ref = 32;
@@ -195,14 +195,18 @@ void servoLoop(){
     theta = Serial.read();
   }
   T = (1/float(fServo));
-  Kp = Kp/velocity;
+  float tmpKp = Kp/float(velocity+1);
+  /*Serial.print(velocity);
+  Serial.print(',');
+  Serial.println(tmpKp);*/
+  
   float error = ref - theta;
-  DUTY = (1-10*T)*lastduty+Kp*(0.1*T-1)*lasterror+Kp*error;
- /* Serial.print(ref);
+  DUTY = (1-10*T)*lastduty+tmpKp*(0.1*T-1)*lasterror+tmpKp*error;
+  Serial.print(ref);
    Serial.print(',');
    Serial.print(error);
    Serial.print(',');
-   Serial.println(DUTY);*/
+   Serial.println(DUTY);
   lastduty = DUTY;
   lasterror = error;
   servopos = analogRead(A0);
@@ -214,7 +218,7 @@ void servoLoop(){
   else if(DUTY > 5) DUTY = 5;
   //if(error < 0){
   DUTY = DUTY*100;
-  DUTY = map(DUTY, 5*100, -5*100, 2500, 4000);
+  DUTY = map(DUTY, 5*100, -5*100, 2550, 4050);
   //else if (error > 0){
   //DUTY = map(DUTY, -0.3*Kp, 0.3*Kp, 320, 570);}
   DUTY = DUTY/100;
@@ -256,21 +260,23 @@ void distanceControl(){
   float V_measured;
   if(digitalRead(button) == LOW){
   float D_ref = 0.324; 
-  float K_p_distance = -2;
-  float K_i_distance = -0.3;
-  float K_v_distance = 0.1;
+  float K_p_distance = -3;
+  float K_i_distance = -0.5;
+  float K_v_distance = 0.2;
   
-  float D_measured = realDistance;
-  velocity = velocity*100;
+  float D_measured = realDistance; // hentes fra calculateDistance();
+  velocity = velocity*100;  // er her kun for at undgå afrundinger
   
-    V_measured = map(velocity,0,800,0,100);
-    V_measured = V_measured/100;
+    V_measured = map(velocity,0,800,0,100); // Mapning fra m/s til PWM
+    V_measured = V_measured/100;  // igen for at undgå afrundinger
     
-    if(V_measured < 1 && V_measured > 0){
+    if(V_measured < 1 && V_measured > 0){ // fjerner slidte målinger fra hastighedssenor
      V_last = V_measured; 
     }
     else V_measured = V_last;
+  velocity = velocity/100;
   
+  // Nu starter reguleringen
   Error_DC = D_ref - D_measured;
   PWM_DC = ((Error_DC - Error_last_DC)*K_p_distance) + (K_i_distance*Error_last_DC*T) + PWM_last_DC;
   PWM_real_DC = PWM_DC - (K_v_distance * V_measured);
@@ -282,8 +288,21 @@ void distanceControl(){
   
   
     
-    if(PWM_real_DC > 1) PWM_real_DC = 1;
-    else if(PWM_real_DC < 0) PWM_real_DC = 0;
+      if(PWM_real_DC > 1) PWM_real_DC = 1; // Fjerner alt højere end 100% PWM
+      
+      if(PWM_real_DC < 0){    // Hvis DUTY cycle er negativ skal der køres baglæns
+        digitalWrite(6,HIGH);
+        digitalWrite(7,LOW);
+        PWM_real_DC = PWM_real_DC * (-1); // Gør PWM til et positivt tal
+        if(PWM_real_DC > 0.2){    // Begrænser den maksimale bakke-hastighed
+            PWM_real_DC = 0.2;}      
+      }
+      else{
+        digitalWrite(6,LOW); // Hvis der skal køres fremad
+        digitalWrite(7,HIGH);
+      }
+
+    // Alt herunder er PWM til motoren
     if(PWM_real_DC == 0)toPWM_DC = 0;
     else toPWM_DC = (1 / float(PWM_real_DC*100)) * 100;
 
@@ -303,7 +322,7 @@ void distanceControl(){
 }
 
 
-else {
+else { // Hvis ikke der er trykket på knappen skal den ikke køre
     toPWM_DC = 0;
 
     OCR2B = ((OCR2A + 1) / toPWM_DC) - 1;
