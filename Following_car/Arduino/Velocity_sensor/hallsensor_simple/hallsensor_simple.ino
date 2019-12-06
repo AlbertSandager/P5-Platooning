@@ -12,13 +12,13 @@ unsigned long timer = 0;
 unsigned long newmillis = 0;
 float tstart = 0;
 float tstop = 0;
-int motorSpeed = 512;
+int motorSpeed = 128;
 
 
 void setup() {
   Timer1.initialize(2000);
   Timer1.pwm(PWM_PIN, motorSpeed, 20);
-  Serial.begin(9600);
+  Serial.begin(115200);
   attachInterrupt(0, magnet_detect, RISING);//Initialize the intterrupt pin (Arduino digital pin 2)
   pinMode(PWM_PIN, OUTPUT); // declares pin 12 as output
   pinMode(6, OUTPUT);  // declares pin A0 as input

@@ -6,12 +6,12 @@
 unsigned long t0 = 0;
 const unsigned long ts = 5;
 
-float T = 0.05;
+float T = 0.0005;
 float PWM_OUT = 0;
 
 int servocounter = 0;
 
-
+unsigned long timeold = 0;
 float Kp = 10;
 float Kv = 15;
 
@@ -40,6 +40,9 @@ float IRdistance = 30;
 int distanceCounter = 0;
 int button = 5;
 
+float L = 0.3;
+float v = 0;
+
 float servopos = 32;
 float lastservopos = 32;
 float velocityfeedback = 0;
@@ -49,8 +52,13 @@ unsigned long tstart = 0;
 unsigned long tstop = 0;
 unsigned long tlast = 0;
 double circumference = 0.2765; //27,65 cm
-double magnets = 4.0;
+double magnets = 8.0;
 Servo myservo;
+
+volatile int interruptCounter = 0;
+
+// Timing
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -67,7 +75,7 @@ void setup() {
   pinMode(7,OUTPUT);
   digitalWrite(6,LOW);
   digitalWrite(7,HIGH);
-  //attachInterrupt(0, magnet_detect, RISING);//Initialize the intterrupt pin (Arduino digital pin 2)
+  attachInterrupt(0, magnet_detect, RISING);//Initialize the intterrupt pin (Arduino digital pin 2)
 
 
   TCCR2A = bit (WGM20) | bit (WGM21) | bit (COM2B1); // fast PWM, clear OC2B on compare
@@ -91,6 +99,22 @@ void setup() {
 }
 
 void loop() {
+  /*
+  if((tservoLast + (1/TServo)*1000) > millis()) {
+    
+    servoLoop();
+  }
+  
+  if((tDCLast + (1/TDC)*1000) > millis()) {
+    
+    servoLoop();
+  }
+  */
+  if((t0 + T*1000) > millis()) {
+    
+    servoLoop();
+  }
+  
   if (Serial.available()) {
     theta = Serial.read();
     //ref = map(ref,0,320,0,65);
@@ -110,22 +134,35 @@ void loop() {
    Serial.print("\n");
    */
   // Wait
-  /*
+  
   distanceCounter++;
-   if(distanceCounter == 8){
+   if(distanceCounter == 2){
    int sensorValue = analogRead(A1);
    IRdistance = 187754 * pow(sensorValue, -1.51);
    L = IRdistance/100;
    distanceCounter = 0; 
    }
    t0 = millis();
-   if(tlast != 0){
-   float interval = (tstart - tlast);
-   float velocity;
-   velocity = ((circumference / magnets) / (interval / 1000)) * 3.6;
-   v = velocity/3.6;}
+   if(interruptCounter >= 2){
+     int rpm = 30*1000/(millis()-timeold)*interruptCounter;
+     timeold = millis();
+     interruptCounter = 0;
+   //int interval = (tstart - tlast);
+   //float velocity;
+   //velocity = ((circumference / magnets) / (interval / 1000)) * 3.6;
+   //v = velocity/3.6;
+   //Serial.print(L);
+   //Serial.print(',');
+     Serial.println(rpm);
+   /*
+   if(interruptCounter >= 8){
+     float velocity = micros()-tlast;
+     tlast = micros();
+     interruptCounter = 0;
+   Serial.println(velocity);*/
+ }
    
-   */
+   
   while ((t0 + T*1000) > millis()) {
   }
 
@@ -134,11 +171,11 @@ void loop() {
 void servoLoop(){
   float error = ref - theta;
   DUTY = (1-10*T)*lastduty+Kp*(0.1*T-1)*lasterror+Kp*error;
-  Serial.print(ref);
+  /*Serial.print(ref);
   Serial.print(',');
   Serial.print(error);
   Serial.print(',');
-  Serial.print(DUTY);
+  Serial.print(DUTY);*/
   lastduty = DUTY;
   lasterror = error;
   servopos = analogRead(A0);
@@ -158,8 +195,8 @@ void servoLoop(){
   if(DUTY - lastmappedduty > 1) DUTY = lastmappedduty+1;
   else if(DUTY - lastmappedduty < -1) DUTY = lastmappedduty-1;
   lastmappedduty = DUTY;
-  Serial.print(',');
-  Serial.print(DUTY);
+  /*Serial.print(',');
+  Serial.print(DUTY);*/
 
   
   if(DUTY < 0) DUTY = 0;
@@ -171,8 +208,8 @@ void servoLoop(){
     myservo.write(angle);
     servocounter = 0;
   }
-  Serial.print(',');
-  Serial.println(angle);
+  /*Serial.print(',');
+  Serial.println(angle);*/
   //DUTY = 4.3; //remove this
 
   //toPWM = (1 / DUTY) * 100;
@@ -183,11 +220,11 @@ void servoLoop(){
 void dcmotorLoop(){
  
  if(digitalRead(button) == LOW){
- DUTY_DC = 23;
+ DUTY_DC = 25;
  toPWM_DC = (1 / DUTY_DC) * 100;
  
  OCR2B = ((OCR2A + 1) / toPWM_DC) - 1;
- Serial.println("ALT GODT");
+ //Serial.println("ALT GODT");
  }
  else {
  toPWM_DC = 0;
@@ -196,10 +233,16 @@ void dcmotorLoop(){
  }
  }
  /*
+ void dc_motor_loop(){
+ float error = Distanceref - Distancemeas;
+  
+ }
+ */
  void magnet_detect() {
- tlast = tstart;
- tstart = millis();
- 
+ //tlast = tstart;
+ //tstart = millis();
+ interruptCounter++;
+ //Serial.println("detect");
  }
 
-*/
+

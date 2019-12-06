@@ -84,7 +84,7 @@ class DetectBall(picamera.array.PiRGBAnalysis):
         
         start = time.time()
         GreenFound = GreenFound.astype(np.uint8)
-        cv2.imshow('image',a)
+        cv2.imshow('image',GreenFound)
         cv2.waitKey(1)
         #cv2.imwrite('GreenFound.png',GreenFound)
         end = time.time()
