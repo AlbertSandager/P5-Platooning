@@ -30,8 +30,8 @@ bool startchatting = true;
 void setup() {
 
   // Open serial communications and wait for port to open:
-  Serial.begin(115200);
-  Serial.flush();
+  //Serial.begin(115200);
+  //Serial.flush();
   pinMode(6, INPUT_PULLUP);
   pinMode(7, INPUT_PULLUP);
 
