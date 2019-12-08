@@ -165,7 +165,7 @@ float velocity = 0;
 void calculateVelocity(){
   float interval = millis()-timeold;
   if(interruptCounter >= 2){
-    float velocityTMP = ((circumference / magnets) / (interval / 1000));
+    float velocityTMP = ((circumference / (magnets/2)) / (interval / 1000));
     if(velocityTMP < 8) velocity = velocityTMP;
     timeold = millis();
     //Serial.println(velocity);
@@ -326,7 +326,7 @@ void distanceControl(){
   float D_ref = 0.32; 
   float K_p_distance = -1.5;
   float K_i_distance = -0.1;
-  float K_v_distance = 0.6;
+  float K_v_distance = 0.3;
   
   float D_measured = realDistance; // hentes fra calculateDistance();
   velocity = velocity*100;  // er her kun for at undgå afrundinger
@@ -375,6 +375,10 @@ void distanceControl(){
   OCR2B = ((OCR2A + 1) / toPWM_DC) - 1;
   
   Serial.print(realDistance);
+  Serial.print(',');
+  Serial.print(velocity);
+  Serial.print(',');
+  Serial.print(theta);
   Serial.print(',');
   Serial.println(millis());/*
   Serial.print(',');
