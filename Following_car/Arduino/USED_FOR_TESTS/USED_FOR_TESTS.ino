@@ -192,11 +192,18 @@ void calculateDistance(){
   if(realDistance > 1.0) realDistance = 0;
   digitalWrite(distanceENABLE,HIGH);
 }
+int angles = 0;
+unsigned long lastPicture = 0;
+int pictureFlag = 0;
 
 void servoLoop(){
   if (Serial.available()) {
     theta = Serial.read();
-  }
+  if(theta != 65){
+  lastPicture = millis();
+  pictureFlag = 1;}
+  else pictureFlag = 0;  
+}
   T = (1/float(fServo))*60;
   float tmpKp = Kp/float(velocity*0.8+1)*17;
   /*Serial.print(velocity);
@@ -237,7 +244,8 @@ void servoLoop(){
 
 
   if(DUTY < 0) DUTY = 0;
-  if(DUTY > 65) DUTY = 65;
+  else if(DUTY > 65) DUTY = 65;
+  if(theta == 65) DUTY = 32;
   servocounter++;
   int angle = DUTY;
   //if(servocounter >= 2){
@@ -370,7 +378,8 @@ void distanceControl(){
     if(PWM_real_DC == 0)toPWM_DC = 0;
     else toPWM_DC = (1 / float(PWM_real_DC*100)) * 100;
 
-  if(realDistance > 1) toPWM_DC = 0;
+  if(realDistance > 1 || millis()-lastPicture > 116) {toPWM_DC = 0; //Serial.println("STOPPER");
+}
   
   OCR2B = ((OCR2A + 1) / toPWM_DC) - 1;
   
@@ -379,6 +388,8 @@ void distanceControl(){
   Serial.print(velocity);
   Serial.print(',');
   Serial.print(theta);
+  Serial.print(',');
+  Serial.print(pictureFlag);
   Serial.print(',');
   Serial.println(millis());/*
   Serial.print(',');
